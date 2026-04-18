@@ -3,7 +3,7 @@
 set_color=$(tput setaf 2) #GREEN
 reset_color=$(tput sgr0)
 
-pacman_packages=("firefox" "tree" "nvim" "clang" "nodejs" "pyright" "rust-analyzer" "gopls" "lua-language-server" "yaml-language-server" "bash-language-server" "vlc" "fastfetch" "kitty" "base-devel" "htop" "git")
+pacman_packages=("firefox" "tree" "nvim" "vlc" "fastfetch" "kitty" "base-devel" "htop" "git" "lazygit")
 
 AUR_PACKAGES=("zen-browser-bin")
 
