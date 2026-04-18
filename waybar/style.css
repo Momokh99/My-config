@@ -1,0 +1,43 @@
+@define-color foreground #7aa2f7;
+@define-color foreground-inactive #565f89;
+@define-color background #1a1b26;
+@define-color highlight #2ac3de;
+@define-color surface #24283b;
+
+* {
+  font-family: JetBrainsMono Nerd Font, Material Design Icons;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+#waybar {
+  min-height: 22px;
+  margin: 0;
+  color: @foreground;
+  background-color: @background;
+}
+
+#workspaces button {
+  color: @foreground;
+  padding-left: 0.4em;
+}
+
+#workspaces button.empty {
+  color: @foreground-inactive;
+}
+
+#window-title {
+  color: @foreground;
+  padding: 0 0.5em;
+}
+
+#wireplumber,
+#battery,
+#language,
+#network,
+#bluetooth,
+#tray,
+#clock {
+  padding-right: 0.5em
+}
