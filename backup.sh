@@ -1,14 +1,13 @@
 #!/bin/bash
 
-BACK_UP_DIR="$HOME/BACKUP/dotfiles_$(date +%Y-%m-%d)"
+BACK_UP_DIR="$HOME/config/config$(date +%Y-%m-%d)"
 mkdir -p "$BACK_UP_DIR"
-
+#in .config
 configs=("waybar" "Kvantum" "fastfetch" "kitty" "hypr" "rofi")
-
+#in HOME
 dotfiles=(".bashrc" ".zshrc")
 
 echo " starting backup to $BACK_UP_DIR ..."
-
 
 for folder in "${configs[@]}"; do
   if [ -d "$HOME/.config/$folder" ]; then
@@ -19,7 +18,7 @@ for folder in "${configs[@]}"; do
   fi
 done
 
-for file in "${dotfiles_[@]}"; do
+for file in "${dotfiles[@]}"; do
   if [ -d "$HOME/$file" ]; then
     cp -r "$HOME/$file" "$BACK_UP_DIR"
     echo "   BACKUP DONE SUCCESUVELY $folder"
@@ -31,4 +30,3 @@ done
 echo "────────────────────────────────────────────────────────────"
 
 echo " finished"
-

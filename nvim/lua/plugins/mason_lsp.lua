@@ -7,7 +7,7 @@ return {
       "lua_ls",
       "pyright",
       "clangd",
-      "asm-lsp",
+      "asm_lsp",
     },
   },
   dependencies = {
