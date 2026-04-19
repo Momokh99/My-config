@@ -2,7 +2,7 @@
 
 CONFIG_DIR="$HOME/.config/"
 
-installed_config="$HOME/config/"
+installed_config="$HOME/My-config-main/"
 
 configs=("waybar" "Kvantum" "fastfetch" "kitty" "hypr" "rofi")
 

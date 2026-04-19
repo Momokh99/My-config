@@ -3,6 +3,7 @@ return {
   opts = {
     ensure_installed = {
       "html",
+      "bashls",
       "cssls",
       "lua_ls",
       "pyright",
