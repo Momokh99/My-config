@@ -20,7 +20,7 @@ CURENT_SHELL=$(basename "$SHELL")
 
 if [ "$CURENT_SHELL" != "zsh" ]; then
   echo "changing default shell to zsh ..."
-  chsh -s $(which zsh)
+  chsh -s "$(which zsh)"
   echo "shell changed log in and log out"
 else
   echo "zsh is already your default"

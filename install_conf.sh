@@ -8,7 +8,7 @@ configs=("waybar" "Kvantum" "fastfetch" "kitty" "hypr" "rofi")
 
 echo " starting transfert ..."
 
-for folder in ${configs[@]}; do
+for folder in "${configs[@]}"; do
   if [ -d "$installed_config/$folder" ]; then
     cp -rf "$installed_config/$folder" "$CONFIG_DIR/"
     echo " Moved $folder"
