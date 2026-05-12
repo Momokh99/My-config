@@ -1,0 +1,49 @@
+[font]
+normal = { family = "monospace" }
+size = 11.0
+
+[scrolling]
+history = 2000
+
+[mouse]
+hide_when_typing = true
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "None"
+dynamic_title = true
+startup_mode = "Windowed"
+
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#c6c6c6"
+
+[colors.selection]
+text = "#1e1e2e"
+background = "#6c7298"
+
+[colors.cursor]
+text = "#011627"
+cursor = "#585b70"
+
+[colors.normal]
+black   = "#1e1e2e"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#cdd6f4"
+
+[colors.bright]
+black   = "#585b70"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#ffffff"

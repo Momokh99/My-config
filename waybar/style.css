@@ -1,27 +1,44 @@
-@define-color foreground #7aa2f7;
-@define-color foreground-inactive #565f89;
-@define-color background #1a1b26;
-@define-color highlight #2ac3de;
-@define-color surface #24283b;
-
 #waybar {
   min-height: 22px;
   margin: 0;
-  color: @foreground;
-  background-color: @background;
+  color: #7aa2f7;
+  background-color: #1a1b26;
 }
 
 #workspaces button {
-  color: @foreground;
+  color: #7aa2f7;
   padding-left: 0.4em;
+  background-color: transparent;
+
 }
 
+#workspaces button.active {
+  color: #b4befe;
+}
+
+#workspaces button.focused {
+  color: #89b4fa;
+  background: transparent;
+  border-radius: 15px;
+}
+
+
+#workspaces button:hover {
+  background: transparent;
+  color: #f2cdcd;
+  border-radius: 15px;
+}
+
+
+
+
+
 #workspaces button.empty {
-  color: @foreground-inactive;
+  color: #565f89;
 }
 
 #window-title {
-  color: @foreground;
+  color: #7aa2f7;
   padding: 0 0.5em;
 }
 
@@ -33,4 +50,26 @@
 #tray,
 #clock {
   padding-right: 0.5em
+}
+
+
+
+#battery {
+  color: #7aa2f7;
+  padding-left: 15px;
+  border-radius: 15px 0 0 15px;
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network {
+  background-color: transparent;
+  color: #7aa2f7;
 }

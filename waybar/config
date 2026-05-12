@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 22,
+    "height": 34,
     "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["wireplumber", "network", "bluetooth", "battery", "clock", "tray"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["wireplumber", "network", "battery", "clock", "tray"],
 
     "hyprland/workspaces": {
         "disable-scroll": false,
@@ -31,8 +31,8 @@
         }
     },
 
-    "window-title": {
-        "format": "{name}",
+    "hyprland/window": {
+        "format": "{}",
         "max-length": 40
     },
 
@@ -56,18 +56,11 @@
         "format-alt": "󰈀 {ipaddr}"
     },
 
-    "bluetooth": {
-        "format": "{icon}",
-        "format-icons": {
-            "on": "󰁋",
-            "off": "󰂲"
-        },
-        "tooltip-format": "{status}"
-    },
+
 
     "battery": {
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
         "tooltip-format": "{timeTo}",
         "format-icons": ["", "", "", "", ""],
         "interval": 30,
