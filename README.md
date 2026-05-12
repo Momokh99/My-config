@@ -23,13 +23,31 @@ Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 
 | Key | Action |
 |---|---|
-| SUPER + Q | Terminal (kitty) |
+| SUPER + Return | Terminal (kitty) |
 | SUPER + E | File manager (dolphin) |
-| SUPER + D | App launcher (wofi) |
-| SUPER + W | Browser (zen/firefox) |
-| SUPER + Esc | Lock screen |
-| SUPER + 1-9 | Switch workspace |
-| SUPER + SHIFT + 1-9 | Move window to workspace |
+| SUPER + space | App launcher (wofi) |
+| SUPER + Z | Zen Browser |
+| SUPER + F | Firefox |
+| SUPER + N | Editor (kitty + nvim) |
+| SUPER + O | Editor (kitty + opencode) |
+| SUPER + I | WiFi (kitty + impala) |
+| SUPER + W | Kill active window |
+| SUPER + SHIFT + Q | Exit Hyprland |
+| SUPER + SHIFT + E | Power menu (wlogout) |
+| SUPER + SHIFT + L | Lock screen |
+| SUPER + SHIFT + R | Reload Hyprland |
+| SUPER + B | Toggle browser special workspace |
+| SUPER + SHIFT + B | Move window to browser workspace |
+| SUPER + left/right/up/down | Move focus |
+| SUPER + J | Toggle split |
+| SUPER + P | Pseudo-tiling |
+| ALT + F | Fullscreen |
+| ALT + V | Toggle floating |
+| ALT + &/é/"/'/(-/_/è/ç | Switch workspace 1-9 (AZERTY) |
+| ALT + SHIFT + &/é/"/'/(-/_/è/ç | Move window to workspace 1-9 (AZERTY) |
+| Print | Screenshot full |
+| SUPER + Print | Screenshot region |
+| SUPER + SHIFT + S | Screenshot to file |
 
 ## Theme
 
