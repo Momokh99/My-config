@@ -2,6 +2,8 @@
 
 Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 
+![Hyprland Desktop](wallpaper/20260508_14h01m35s_grim.png)
+
 ## Included
 
 - **WM**: Hyprland (keybinds, gestures, idle, lock, wallpaper)
