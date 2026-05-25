@@ -1,14 +1,15 @@
 #!/bin/bash
+set -e
 
 set_color=$(tput setaf 2) #GREEN
 reset_color=$(tput sgr0)
 
-pacman_packages=("firefox" "tree" "nvim" "vlc" "fastfetch" "kitty" "base-devel" "htop" "opencode" "fd" "nodejs" "npm" "python-pip" "unzip" "wget" "curl" "zsh" "git" "lazygit")
+pacman_packages=("firefox" "tree" "nvim" "vlc" "fastfetch" "kitty" "base-devel" "htop" "fd" "nodejs" "npm" "python-pip" "unzip" "wget" "curl" "zsh" "git" "lazygit")
 
-AUR_PACKAGES=("zen-browser-bin")
+AUR_PACKAGES=("zen-browser-bin" "opencode")
 
 #update system
-echo "${set_color} ───────────────────── updating system reposotories ───────────────────── ${reset_color}"
+echo "${set_color} ───────────────────── updating system repositories ───────────────────── ${reset_color}"
 sudo pacman -Syu --noconfirm
 
 #install the pacman packages
@@ -18,14 +19,9 @@ sudo pacman -S --noconfirm --needed "${pacman_packages[@]}"
 #install YAY if not
 if ! command -v yay &>/dev/null; then
   echo "${set_color} ───────────────────── yay not found installing  ───────────────────── ${reset_color}"
-  #install git if not
-  if ! command -v git &>/dev/null; then
-    echo "${set_color} ───────────────────── git not found installing  ───────────────────── ${reset_color}"
-    sudo pacman -S --noconfirm git
-  fi
   git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay && makepkg -si --noconfirm
-  cd ... || exit
+  cd /tmp || exit
 fi
 
 # --- 5. Install AUR Packages ---

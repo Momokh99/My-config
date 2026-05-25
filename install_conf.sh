@@ -1,12 +1,13 @@
-#copy the config installed from github to their place
+#!/bin/bash
+set -e
 
 CONFIG_DIR="$HOME/.config/"
 
-installed_config="$HOME/My-config-main/"
+installed_config="$HOME/My-config/"
 
-configs=("waybar" "Kvantum" "fastfetch" "kitty" "hypr" "rofi")
+configs=("waybar" "Kvantum" "fastfetch" "kitty" "hypr" "wofi")
 
-echo " starting transfert ..."
+echo " starting transfer ..."
 
 for folder in "${configs[@]}"; do
   if [ -d "$installed_config/$folder" ]; then

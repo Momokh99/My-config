@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if ! command -v zsh &>/dev/null; then
   echo "zsh not installed       installing..."
@@ -16,9 +17,13 @@ else
   echo "zsh is installed"
 fi
 
-CURENT_SHELL=$(basename "$SHELL")
+CURRENT_SHELL=$(basename "$SHELL")
 
-if [ "$CURENT_SHELL" != "zsh" ]; then
+if [ "$CURRENT_SHELL" != "zsh" ]; then
+  if ! command -v chsh &>/dev/null; then
+    echo "chsh not found. Install it with your package manager."
+    exit 1
+  fi
   echo "changing default shell to zsh ..."
   chsh -s "$(which zsh)"
   echo "shell changed log in and log out"

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 BACK_UP_DIR="$HOME/config/config$(date +%Y-%m-%d)"
 mkdir -p "$BACK_UP_DIR"
@@ -12,16 +13,16 @@ echo " starting backup to $BACK_UP_DIR ..."
 for folder in "${configs[@]}"; do
   if [ -d "$HOME/.config/$folder" ]; then
     cp -r "$HOME/.config/$folder" "$BACK_UP_DIR"
-    echo "  BACKUP DONE SUCCESUVELY $folder"
+    echo "  BACKUP DONE SUCCESSFULLY $folder"
   else
     echo "   NOT found"
   fi
 done
 
 for file in "${dotfiles[@]}"; do
-  if [ -d "$HOME/$file" ]; then
+  if [ -f "$HOME/$file" ]; then
     cp -r "$HOME/$file" "$BACK_UP_DIR"
-    echo "   BACKUP DONE SUCCESUVELY $folder"
+    echo "   BACKUP DONE SUCCESSFULLY $file"
   else
     echo "    NOT found"
   fi

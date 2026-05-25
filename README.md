@@ -13,13 +13,35 @@ Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 - **Shell**: Zsh (Powerlevel10k, zoxide, fzf)
 - **System Info**: Fastfetch
 
-## Quick Start
+> **Note:** You can run any script with `bash script.sh` — no need to `chmod` unless you prefer `./script.sh`.
+
+## Quick Start (Fresh Install)
+
+**From Arch ISO → arch-chroot:**
 
 ```bash
-./install_pack.sh    # Install packages (pacman + AUR)
-./change_Shell.sh    # Set Zsh as default shell (log out & back in)
-./install_conf.sh    # Deploy configs to ~/.config/
+pacman -S --noconfirm git
+git clone https://github.com/Momokh99/My-config /root/My-config
+cd /root/My-config
+bash install_pack.sh
 ```
+
+**After reboot (as normal user):**
+
+```bash
+cd ~/My-config
+bash change_Shell.sh       # Set Zsh as default — log out then back in
+bash install_conf.sh       # Deploy configs to ~/.config/
+```
+
+## Scripts
+
+| Script | What it does | Usage |
+|---|---|---|
+| `install_pack.sh` | Updates system, installs pacman & AUR packages | `sudo bash install_pack.sh` (normal user) or `bash install_pack.sh` (root/chroot) |
+| `change_Shell.sh` | Installs Zsh if missing, sets it as default via `chsh` | `bash change_Shell.sh` — then log out & back in |
+| `install_conf.sh` | Copies configs from `~/My-config/` to `~/.config/` | `bash install_conf.sh` |
+| `backup.sh` | Saves current configs & dotfiles to `~/config/config<date>/` | `bash backup.sh` |
 
 ## Keybinds (SUPER = Windows/Mod4)
 
