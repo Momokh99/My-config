@@ -1,0 +1,28 @@
+return {
+  "mason-org/mason-lspconfig.nvim",
+  opts = {
+    ensure_installed = {
+      "html",
+      "bashls",
+      "cssls",
+      "lua_ls",
+      "pyright",
+      "clangd",
+    },
+  },
+  dependencies = {
+    {
+      "mason-org/mason.nvim",
+      opts = {
+        ui = {
+          icons = {
+            package_installed = "𝓿",
+            package_pending = "⏎",
+            package_unistalled = "𝅃",
+          },
+        },
+      },
+      "neovim/nvim-lspconfig",
+    },
+  },
+}
