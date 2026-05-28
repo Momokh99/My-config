@@ -2,7 +2,7 @@
 set -e
 
 if ! command -v zsh &>/dev/null; then
-  echo "zsh not installed       installing..."
+  echo "zsh not installed — installing..."
   if [ -f /etc/arch-release ]; then
     sudo pacman -S --noconfirm zsh
   elif [ -f /etc/debian_version ]; then
@@ -17,6 +17,13 @@ else
   echo "zsh is installed"
 fi
 
+ZSH_PATH=$(which zsh)
+
+# Ensure zsh is listed in /etc/shells (required by chsh)
+if ! grep -qx "$ZSH_PATH" /etc/shells 2>/dev/null; then
+  echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
+fi
+
 CURRENT_SHELL=$(basename "$SHELL")
 
 if [ "$CURRENT_SHELL" != "zsh" ]; then
@@ -25,8 +32,8 @@ if [ "$CURRENT_SHELL" != "zsh" ]; then
     exit 1
   fi
   echo "changing default shell to zsh ..."
-  chsh -s "$(which zsh)"
-  echo "shell changed log in and log out"
+  sudo chsh -s "$ZSH_PATH" "$USER"
+  echo "default shell changed — start a new terminal or run: exec zsh"
 else
-  echo "zsh is already your default"
+  echo "zsh is already your default shell"
 fi

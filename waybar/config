@@ -47,7 +47,7 @@
     },
 
     "network": {
-        "format-wifi": "󰤨  {signalStrength}%",
+        "format-wifi": "󰤨 {signalStrength}%",
         "format-ethernet": "󰈀",
         "tooltip-format": "{essid} ({signalStrength}%)",
         "tooltip-format-wired": " {ifname}",
@@ -59,8 +59,8 @@
 
 
     "battery": {
-        "format": "{icon}  {capacity}%",
-        "format-charging": "󰂄  {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
         "tooltip-format": "{timeTo}",
         "format-icons": ["", "", "", "", ""],
         "interval": 30,
