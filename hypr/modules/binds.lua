@@ -77,11 +77,11 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 -- Toggle Waybar on and off with Super + Escape
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill waybar || waybar"))
 
--- Zero gaps, rounding, and border with Ctrl + Escape
+-- Toggle gaps, rounding, and border with Ctrl + Escape
 hl.bind(
 	"CTRL + Escape",
 	hl.dsp.exec_cmd(
-		[[hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"]]
+		[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "{print \$4}"); if [ "$cur" = "0" ]; then hyprctl eval "hl.config({ general = { gaps_in = ]] .. gaps.in_size .. [[, gaps_out = ]] .. gaps.out_size .. [[, rounding = 10, border_size = 2 } })"; else hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"; fi']]
 	)
 )
 
