@@ -72,6 +72,11 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 -- Toggle Waybar on and off with Super + Escape
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill waybar || waybar"))
 
+-- Toggle gaps between 0 and defaults with Ctrl + Escape
+hl.bind("CTRL + Escape", hl.dsp.exec_cmd(
+	[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "NR==1{print \$3}"); if [ "$cur" = "0" ]; then hyprctl keyword general:gaps_in 5 general:gaps_out 8; else hyprctl keyword general:gaps_in 0 general:gaps_out 0; fi']]
+))
+
 -- Scroll through existing workspaces with ALT + Left/Right Arrow
 hl.bind("CTRL + Right", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("CTRL + Left", hl.dsp.focus({ workspace = "e-1" }))

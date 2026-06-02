@@ -72,6 +72,7 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 | Print | Screenshot full → ~/Pictures/screenshoot |
 | SUPER + Print | Screenshot region → ~/Pictures/screenshoot |
 | SUPER + SHIFT + Print | Copy screenshot to clipboard |
+| CTRL + Escape | Toggle gaps 0 / default |
 
 ## Theme
 
