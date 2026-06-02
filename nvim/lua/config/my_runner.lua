@@ -5,13 +5,13 @@ local runComands = {
   --scripting lang
   python = "python3",
   javascript = "node",
-  go = "so run",
+  go = "go run",
   sh = "bash",
   lua = "lua",
   --compiled lang
   c = "gcc '%:p' -o '%:p:r' && '%:p:r'",
-  cpp = "g++ '%:p' -o '%:p:r' && ':p:r'",
-  asm = "nasm -f elf64 '%:p' -o '%:p:r.o' && '%:p:r.o' -o '%:p:r' && '%:p:r'",
+  cpp = "g++ '%:p' -o '%:p:r' && '%:p:r'",
+  asm = "nasm -f elf64 '%:p' -o '%:p:r.o' && ld '%:p:r.o' -o '%:p:r' && '%:p:r'",
   --web lang
   html = "xdg-open",
 }

@@ -6,5 +6,4 @@ prompt=Search ....
 filter_rate=100
 allow_images=true
 image_size=24
-term=foot
-terminal
+term=kitty
