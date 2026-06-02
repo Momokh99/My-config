@@ -9,6 +9,9 @@ local menu = "wofi"
 local browser = "helium-browser"
 local notification = "mako"
 
+-- Gap defaults
+gaps = { in_size = 5, out_size = 8 }
+
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
@@ -21,8 +24,10 @@ hl.bind(mainMod .. "+" .. enter, hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(
 	mainMod .. " + SHIFT + Q",
-	hl.dsp.exec_cmd("	command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit")
+	hl.dsp.exec_cmd([[sh -c 'command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit']])
 )
+-- Restart Hyprland with Ctrl + Alt + R
+hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("hyprctl dispatch restart"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("kitty -e opencode"))
@@ -72,10 +77,13 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 -- Toggle Waybar on and off with Super + Escape
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill waybar || waybar"))
 
--- Toggle gaps between 0 and defaults with Ctrl + Escape
-hl.bind("CTRL + Escape", hl.dsp.exec_cmd(
-	[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "NR==1{print \$3}"); if [ "$cur" = "0" ]; then hyprctl keyword general:gaps_in 5 general:gaps_out 8; else hyprctl keyword general:gaps_in 0 general:gaps_out 0; fi']]
-))
+-- Zero gaps, rounding, and border with Ctrl + Escape
+hl.bind(
+	"CTRL + Escape",
+	hl.dsp.exec_cmd(
+		[[hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"]]
+	)
+)
 
 -- Scroll through existing workspaces with ALT + Left/Right Arrow
 hl.bind("CTRL + Right", hl.dsp.focus({ workspace = "e+1" }))
@@ -125,12 +133,6 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 local screenshotDir = os.getenv("HOME") .. "/Pictures/screenshoot"
 os.execute("mkdir -p " .. screenshotDir)
 
-hl.bind("Print", hl.dsp.exec_cmd(
-	"grim " .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"
-))
-hl.bind("SUPER + Print", hl.dsp.exec_cmd(
-	"grim -g \"$(slurp)\" " .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"
-))
-hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd(
-	"grim -g \"$(slurp)\" - | wl-copy"
-))
+hl.bind("Print", hl.dsp.exec_cmd("grim " .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"))
+hl.bind("SUPER + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"))
+hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
