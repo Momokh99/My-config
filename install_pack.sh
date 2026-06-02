@@ -4,9 +4,9 @@ set -e
 set_color=$(tput setaf 2) #GREEN
 reset_color=$(tput sgr0)
 
-pacman_packages=("firefox" "tree" "nvim" "vlc" "fastfetch" "kitty" "base-devel" "htop" "fd" "nodejs" "npm" "python-pip" "unzip" "wget" "curl" "zsh" "git" "lazygit" "stow" "hyprland" "waybar" "wofi" "mako" "hyprlock" "hypridle" "hyprpaper" "grim" "slurp" "brightnessctl" "playerctl" "dolphin" "wireplumber" "ttf-jetbrains-mono-nerd")
+pacman_packages=("firefox" "tree" "nvim" "vlc" "fastfetch" "kitty" "base-devel" "htop" "fd" "nodejs" "npm" "python-pip" "unzip" "wget" "curl" "zsh" "git" "lazygit" "opencode" "stow" "hyprland" "waybar" "wofi" "mako" "hyprlock" "hypridle" "hyprpaper" "grim" "slurp" "brightnessctl" "playerctl" "dolphin" "wireplumber" "ttf-jetbrains-mono-nerd")
 
-AUR_PACKAGES=("zen-browser-bin" "opencode")
+AUR_PACKAGES=("zen-browser-bin")
 
 #update system
 echo "${set_color} ───────────────────── updating system repositories ───────────────────── ${reset_color}"

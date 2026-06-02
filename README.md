@@ -2,7 +2,7 @@
 
 Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 
-![Hyprland Desktop](wallpaper/20260508_14h01m35s_grim.png)
+![Hyprland Desktop](hypr/wallpaper/20260508_14h01m35s_grim.png)
 
 ## Included
 
@@ -36,12 +36,12 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 
 ## Scripts
 
-| Script | What it does | Usage |
-|---|---|---|
-| `install_pack.sh` | Updates system, installs pacman & AUR packages | `sudo bash install_pack.sh` (normal user) or `bash install_pack.sh` (root/chroot) |
-| `change_Shell.sh` | Installs Zsh if missing, sets it as default via `chsh` | `bash change_Shell.sh` — then log out & back in |
-| `install_conf.sh` | Copies configs from `~/My-config/` to `~/.config/` | `bash install_conf.sh` |
-| `backup.sh` | Saves current configs & dotfiles to `~/config/config<date>/` | `bash backup.sh` |
+| Script | What it does | Details | Usage |
+|---|---|---|---|---|
+| `install_pack.sh` | Updates system, installs packages | Runs `pacman -Syu`, installs 22+ packages (firefox, nvim, kitty, opencode, hyprland, waybar, wofi, mako, ...), installs `yay` AUR helper, then installs AUR packages (zen-browser) | `sudo bash install_pack.sh` (normal user) or `bash install_pack.sh` (root/chroot) |
+| `change_Shell.sh` | Sets Zsh as default shell | Installs zsh via distro package manager if missing, adds it to `/etc/shells`, runs `chsh -s $(which zsh)` | `bash change_Shell.sh` — then log out & back in |
+| `install_conf.sh` | Deploys configs with GNU Stow | Symlinks waybar, fastfetch, kitty, hypr, wofi into `~/.config/`; backs up existing physical directories first | `bash install_conf.sh` |
+| `backup.sh` | Backs up current configs | Copies the same config folders + `.bashrc` / `.zshrc` to `~/config/config$(date)/` | `bash backup.sh` |
 
 ## Keybinds (SUPER = Windows/Mod4)
 
