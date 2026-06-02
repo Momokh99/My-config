@@ -69,9 +69,9 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 | ALT + V | Toggle floating |
 | ALT + &/é/"/'/(-/_/è/ç | Switch workspace 1-9 (AZERTY) |
 | ALT + SHIFT + &/é/"/'/(-/_/è/ç | Move window to workspace 1-9 (AZERTY) |
-| Print | Screenshot full |
-| SUPER + Print | Screenshot region |
-| SUPER + SHIFT + S | Screenshot to file |
+| Print | Screenshot full → ~/Pictures/screenshoot |
+| SUPER + Print | Screenshot region → ~/Pictures/screenshoot |
+| SUPER + SHIFT + Print | Copy screenshot to clipboard |
 
 ## Theme
 
