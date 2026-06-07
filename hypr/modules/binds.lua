@@ -34,7 +34,7 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("kitty -e opencode"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e nvim"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd("kitty --class impala -e impala"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-
+hl.bind("SUPER + D", hl.dsp.exec_cmd("kitty --class bluetui-floating -e bluetui"))
 -- Keybind to lock the screen (Super + L)
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
@@ -81,7 +81,11 @@ hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill waybar || waybar"))
 hl.bind(
 	"CTRL + Escape",
 	hl.dsp.exec_cmd(
-		[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "{print \$4}"); if [ "$cur" = "0" ]; then hyprctl eval "hl.config({ general = { gaps_in = ]] .. gaps.in_size .. [[, gaps_out = ]] .. gaps.out_size .. [[, rounding = 10, border_size = 2 } })"; else hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"; fi']]
+		[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "{print \$4}"); if [ "$cur" = "0" ]; then hyprctl eval "hl.config({ general = { gaps_in = ]]
+			.. gaps.in_size
+			.. [[, gaps_out = ]]
+			.. gaps.out_size
+			.. [[, rounding = 10, border_size = 2 } })"; else hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"; fi']]
 	)
 )
 

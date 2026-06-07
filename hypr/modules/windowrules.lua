@@ -7,6 +7,14 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	name = "bluetui_rules",
+	match = { class = "^(bluetui-floating)$" },
+	float = true,
+	center = true,
+	size = { 600, 550 },
+})
+
+hl.window_rule({
 	-- Fix some dragging issues with XWayland
 	name = "fix-xwayland-drags",
 	match = {
