@@ -8,6 +8,7 @@ local fileManager = "kitty -e yazi"
 local menu = "wofi"
 local browser = "helium-browser"
 local notification = "mako"
+local projectDir = "~/Projects/My-config"
 
 -- Gap defaults
 gaps = { in_size = 5, out_size = 8 }
@@ -32,6 +33,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("kitty -e opencode"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e nvim"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("kitty -e nvim " .. projectDir))
 hl.bind("SUPER + I", hl.dsp.exec_cmd("kitty --class impala -e impala"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("kitty --class bluetui-floating -e bluetui"))
