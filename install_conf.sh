@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "yazi")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi")
 
 echo " Starting GNU Stow symlinking ..."
 
@@ -30,6 +30,17 @@ for folder in "${configs[@]}"; do
     echo "Stowed contents of $folder"
   fi
 done
+
+# ─── Wofi-power script symlink ───
+BINDIR="$HOME/.local/bin"
+mkdir -p "$BINDIR"
+
+if [ -e "$BINDIR/wofi-power" ] && [ ! -L "$BINDIR/wofi-power" ]; then
+  echo "Backing up wofi-power → wofi-power.bak"
+  mv "$BINDIR/wofi-power" "$BINDIR/wofi-power.bak"
+fi
+ln -sf "$DOTS_DIR/wofi-power.sh" "$BINDIR/wofi-power"
+echo "Linked wofi-power.sh → $BINDIR/wofi-power"
 
 echo "────────────────────────────────────────────────────────────"
 echo " Finished stowing"

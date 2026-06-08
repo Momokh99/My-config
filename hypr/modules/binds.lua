@@ -9,6 +9,7 @@ local menu = "wofi"
 local browser = "helium-browser"
 local notification = "mako"
 local projectDir = "~/Projects/My-config"
+local powerMenu = os.getenv("HOME") .. "/.local/bin/wofi-power"
 
 -- Gap defaults
 gaps = { in_size = 5, out_size = 8 }
@@ -37,8 +38,8 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("kitty -e nvim " .. projectDir))
 hl.bind("SUPER + I", hl.dsp.exec_cmd("kitty --class impala -e impala"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("kitty --class bluetui-floating -e bluetui"))
--- Keybind to lock the screen (Super + L)
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+-- Keybind to show power menu (Super + L)
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(powerMenu))
 
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -91,13 +92,13 @@ hl.bind(
 	)
 )
 
--- Scroll through existing workspaces with ALT + Left/Right Arrow
-hl.bind("CTRL + Right", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind("CTRL + Left", hl.dsp.focus({ workspace = "e-1" }))
+-- Scroll through all workspaces with ALT + Left/Right Arrow
+hl.bind("CTRL + Right", hl.dsp.focus({ workspace = "m+1" }))
+hl.bind("CTRL + Left", hl.dsp.focus({ workspace = "m-1" }))
 
 -- Scroll through existing workspaces with ALT + Left/Right Arrow
-hl.bind("CTRL + SHIFT + Right", hl.dsp.focus({ workspace = "m+1" }))
-hl.bind("CTRL + SHIFT + Left", hl.dsp.focus({ workspace = "m-1" }))
+hl.bind("CTRL + SHIFT + Right", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("CTRL + SHIFT + Left", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

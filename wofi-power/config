@@ -1,0 +1,14 @@
+# ~/Projects/My-config/wofi-power/.config/wofi-power/config
+show=dmenu
+width=650           
+location=top
+yoffset=50
+layer=overlay
+insensitive=true
+prompt=Power Options:
+filter_rate=100
+no_actions=true
+hide_search=true
+columns=4
+lines=1
+content_halign=center
