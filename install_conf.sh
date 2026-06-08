@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "yazi")
 
 echo " Starting GNU Stow symlinking ..."
 

@@ -4,7 +4,7 @@ set -e
 BACK_UP_DIR="$HOME/config/config$(date +%Y-%m-%d)"
 mkdir -p "$BACK_UP_DIR"
 #in .config
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "yazi")
 #in HOME
 dotfiles=(".bashrc" ".zshrc")
 

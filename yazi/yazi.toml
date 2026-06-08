@@ -1,0 +1,73 @@
+[manager]
+ratio          = [ 1, 3, 4 ]
+sort_by        = "alphabetical"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
+sort_translit  = true
+show_hidden    = false
+show_symlink   = true
+linemode       = "size"
+
+[preview]
+tab_size        = 2
+max_width       = 1920
+max_height      = 1080
+max_size        = 2000000
+image_filter    = "triangle"
+image_quality   = 75
+sixel_fraction  = 15
+ueberzug_scale  = 1
+ueberzug_x      = 0
+ueberzug_y      = 0
+
+[opener]
+# "block = true" is critical for nvim. It suspends Yazi visual UI 
+# and hands full TTY control over to Neovim.
+edit = [
+	{ run = 'nvim "$@"', block = true, for = "unix" }
+]
+open = [
+	{ run = 'xdg-open "$@"', desc = "Open", for = "linux" }
+]
+reveal = [
+	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show Info", for = "unix" }
+]
+
+[open]
+rules = [
+	# Route all text files, scripts, and configs to Neovim
+	{ url = "*.txt", use = "edit" },
+	{ url = "*.md", use = "edit" },
+	{ url = "*.json", use = "edit" },
+	{ url = "*.toml", use = "edit" },
+	{ url = "*.yaml", use = "edit" },
+	{ url = "*.yml", use = "edit" },
+	{ url = "*.lua", use = "edit" },
+	{ url = "*.sh", use = "edit" },
+	{ url = "*.py", use = "edit" },
+	{ url = "*.c", use = "edit" },
+	{ url = "*.h", use = "edit" },
+	{ url = "*.go", use = "edit" },
+	{ url = "*.asm", use = "edit" },
+	
+	# Fallback rule: If it's any text file or JSON-like data, use nvim
+	{ mime = "text/*", use = "edit" },
+	{ mime = "application/json", use = "edit" },
+
+	# Catch-all fallback for arbitrary files using system associations
+	{ mime = "*", use = "open" }
+]
+
+[tasks]
+micro_workers    = 10
+macro_workers    = 2
+bire_workers     = 8
+concurrency      = 4
+image_alloc      = 536870912  # 512MB memory limit for image cache
+
+[plugin]
+prepend_previewers = [
+	# Example fallback if you want to use code syntax highlighters inside yazi
+	{ mime = "text/*", run = "code" }
+]
