@@ -20,7 +20,7 @@ case "$chosen" in
   ;;
 "$LOGOUT")
   # Standard way to cleanly exit a Hyprland session
-  hyprctl dispatch exit
+  killall Hyprland
   ;;
 "$REBOOT")
   # Systemd command to restart the machine
