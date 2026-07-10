@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi" "quickshell")
 
 echo " Starting GNU Stow symlinking ..."
 
@@ -41,6 +41,14 @@ if [ -e "$BINDIR/wofi-power" ] && [ ! -L "$BINDIR/wofi-power" ]; then
 fi
 ln -sf "$DOTS_DIR/wofi-power.sh" "$BINDIR/wofi-power"
 echo "Linked wofi-power.sh → $BINDIR/wofi-power"
+
+# ─── Tmux config (stowed into $HOME, not ~/.config) ───
+if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
+  echo "Backing up .tmux.conf → .tmux.conf.bak"
+  cp "$HOME/.tmux.conf" "$HOME/.tmux.conf.bak"
+fi
+echo "Stowing tmux → $HOME"
+stow -R -d "$DOTS_DIR/tmux" -t "$HOME" .
 
 echo "────────────────────────────────────────────────────────────"
 echo " Finished stowing"
