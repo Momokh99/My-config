@@ -15,3 +15,15 @@ opt.termguicolors = true -- True color support
 opt.signcolumn = "yes" -- Always show sign column (prevents text jumping)
 opt.updatetime = 250 -- Faster completion / UI response
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
+
+-- Hide banner at top (press 'I' inside netrw to toggle it back if needed)
+vim.g.netrw_banner = 0
+
+-- Keep current dir synced with netrw
+vim.g.netrw_keepdir = 0
+
+-- Set split size (width percentage when using Lexplore)
+vim.g.netrw_winsize = 25
+
+-- Show directories first, sorted by name
+vim.g.netrw_sort_sequence = "[\\/]$,*"

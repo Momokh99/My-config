@@ -9,6 +9,7 @@ return {
             treesitter = true,
             blink_cmp = true,
             mason = true,
+            telescope = { enabled = true },
         },    
     },
 

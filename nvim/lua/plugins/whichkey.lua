@@ -5,6 +5,11 @@ return {
         preset="modern",
         win={
             border = "rounded"},
+        spec = {
+            { "<leader>b", group = "Buffers" },
+            { "<leader>e", group = "Explorer" },
+            { "<leader>f", group = "Fzf Telescope" },
+        },
         },
 	keys = {
 		{
