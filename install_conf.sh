@@ -6,13 +6,12 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi" "quickshell")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi" "quickshell" "nvim")
 
-echo " Starting GNU Stow symlinking ..."
+echo " Starting manual symlinking ..."
 
 for folder in "${configs[@]}"; do
   if [ -d "$folder" ]; then
-
     # 1. Back up the physical directory if it exists and isn't a symlink
     if [ -e "$CDIR/$folder" ] && [ ! -L "$CDIR/$folder" ]; then
       echo "Backing up $folder → ${folder}.bak"
@@ -20,14 +19,17 @@ for folder in "${configs[@]}"; do
       mv "$CDIR/$folder" "$CDIR/${folder}.bak"
     fi
 
-    # 2. Now we safely make the target folder a physical directory
+    # 2. Ensure target directory exists
     mkdir -p "$CDIR/$folder"
 
-    # 3. Use -d to tell Stow the package is inside the folder,
-    # and use "." to stow everything inside it into the target folder
-    stow -R -d "$folder" -t "$CDIR/$folder" .
+    # 3. Symlink each item inside the source folder into the target
+    for item in "$DOTS_DIR/$folder"/* "$DOTS_DIR/$folder"/.*; do
+      basename_item=$(basename "$item")
+      [[ "$basename_item" = "." || "$basename_item" = ".." ]] && continue
+      ln -sfr "$item" "$CDIR/$folder/$basename_item"
+    done
 
-    echo "Stowed contents of $folder"
+    echo "Linked contents of $folder"
   fi
 done
 
@@ -42,13 +44,13 @@ fi
 ln -sf "$DOTS_DIR/wofi-power.sh" "$BINDIR/wofi-power"
 echo "Linked wofi-power.sh → $BINDIR/wofi-power"
 
-# ─── Tmux config (stowed into $HOME, not ~/.config) ───
+# ─── Tmux config (symlinked into $HOME, not ~/.config) ───
 if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
   echo "Backing up .tmux.conf → .tmux.conf.bak"
   cp "$HOME/.tmux.conf" "$HOME/.tmux.conf.bak"
 fi
-echo "Stowing tmux → $HOME"
-stow -R -d "$DOTS_DIR/tmux" -t "$HOME" .
+ln -sfr "$DOTS_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+echo "Linked .tmux.conf → $HOME/.tmux.conf"
 
 echo "────────────────────────────────────────────────────────────"
-echo " Finished stowing"
+echo " Finished linking"
