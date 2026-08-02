@@ -15,6 +15,7 @@ opt.termguicolors = true -- True color support
 opt.signcolumn = "yes" -- Always show sign column (prevents text jumping)
 opt.updatetime = 250 -- Faster completion / UI response
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.laststatus = 3 -- Global statusline
 
 -- Hide banner at top (press 'I' inside netrw to toggle it back if needed)
 vim.g.netrw_banner = 0

@@ -3,9 +3,13 @@ return {
   dependencies = "rafamadriz/friendly-snippets",
   version = "*",
   opts = {
-    keymap = { preset = "default" },
+    keymap = {
+      preset = "default",
+      ["<Tab>"] = { "select_and_accept", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "fallback" },
+    },
     appearance = {
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
       kind_icons = {
         Text = "󰉿",
@@ -37,6 +41,12 @@ return {
       ghost_text = { enabled = true },
       menu = { border = "rounded" },
       documentation = { auto_show = true, border = "rounded" },
+      accept = {
+        auto_brackets = {
+          enabled = true,
+          default_brackets = { "(", ")" },
+        },
+      },
     },
     signature = { enabled = true, window = { border = "rounded" } },
     cmdline = { enabled = true },

@@ -27,12 +27,6 @@ return {
       dashboard.button("q", "󰅚  Quit Neovim", "<cmd>qa<cr>"),
     }
 
-    -- Recent Files section
-    dashboard.section.mru_cwd.val = {
-      { header = { "Recent Files" }, auto_close = true },
-    }
-    dashboard.section.mru_cwd.opts.hl = "AlphaHeader"
-
     -- Footer stats (shows loaded plugins and timing)
     local function footer()
       local ok, stats = pcall(require, "lazy")

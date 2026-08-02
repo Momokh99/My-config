@@ -1,6 +1,6 @@
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
-require("config.statusline")
+require("config.my_runner")
 require("config.lazy")
 

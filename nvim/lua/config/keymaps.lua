@@ -29,3 +29,8 @@ keymap("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete/Close Buffer" })
 keymap("n", "<leader>bl", "<cmd>ls<cr>", { desc = "List Buffers" })
 keymap("n", "<H>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 keymap("n", "<L>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+
+-- Run current file in terminal
+keymap("n", "<leader>r", function()
+	require("config.my_runner").runCurrentFile()
+end, { desc = "Run current file" })

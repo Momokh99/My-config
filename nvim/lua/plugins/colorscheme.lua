@@ -10,6 +10,7 @@ return {
             blink_cmp = true,
             mason = true,
             telescope = { enabled = true },
+            lualine = true,
         },    
     },
 
