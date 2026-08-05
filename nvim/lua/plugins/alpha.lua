@@ -6,6 +6,10 @@ return {
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")
 
+    -- Catppuccin palette for custom highlights
+    local ok, palette = pcall(require, "catppuccin.palettes")
+    local colors = ok and palette.get_palette("mocha") or nil
+
     -- Custom ASCII Header
     dashboard.section.header.val = {
       " ███╗   ██╗██╗   ██╗██╗███╗   ███╗ ",
@@ -16,21 +20,37 @@ return {
       " ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
     }
 
-    -- Dashboard Action Buttons
+    -- Header color (single, no rainbow)
+    if colors then vim.api.nvim_set_hl(0, "AlphaHeader", { fg = colors.blue }) end
+    dashboard.section.header.opts.hl = "AlphaHeader"
+
+    -- Button text color
+    if colors then vim.api.nvim_set_hl(0, "AlphaButtonsText", { fg = colors.subtext1 }) end
+
+    -- Colored button builder: icon gets its own color, text gets AlphaButtonsText
+    local function button(sc, icon, txt, keybind, icon_hl)
+      local b = dashboard.button(sc, icon .. "  " .. txt, keybind)
+      b.opts.hl = {
+        { icon_hl, 0, #icon },
+        { "AlphaButtonsText", #icon + 2, -1 },
+      }
+      return b
+    end
+
     dashboard.section.buttons.val = {
-      dashboard.button("f", "󰍉  Find File", "<cmd>Telescope find_files<cr>"),
-      dashboard.button("r", "󰋚  Recent Files", "<cmd>Telescope oldfiles<cr>"),
-      dashboard.button("g", "󰈞  Live Grep", "<cmd>Telescope live_grep<cr>"),
-      dashboard.button("e", "󰙅  Explorer (netrw)", "<cmd>Explore<cr>"),
-      dashboard.button("b", "󰓩  Open Buffers", "<cmd>Telescope buffers<cr>"),
-      dashboard.button("u", "󰊤  Update Plugins", "<cmd>Lazy sync<cr>"),
-      dashboard.button("q", "󰅚  Quit Neovim", "<cmd>qa<cr>"),
+      button("f", "󰍉", "Find File", "<cmd>Telescope find_files<cr>", "Function"),
+      button("r", "󰋚", "Recent Files", "<cmd>Telescope oldfiles<cr>", "String"),
+      button("g", "󰈞", "Live Grep", "<cmd>Telescope live_grep<cr>", "Keyword"),
+      button("e", "󰙅", "Explorer (netrw)", "<cmd>Explore<cr>", "Type"),
+      button("b", "󰓩", "Open Buffers", "<cmd>Telescope buffers<cr>", "Number"),
+      button("u", "󰊤", "Update Plugins", "<cmd>Lazy sync<cr>", "Operator"),
+      button("q", "󰅚", "Quit Neovim", "<cmd>qa<cr>", "DiagnosticError"),
     }
 
     -- Footer stats (shows loaded plugins and timing)
     local function footer()
-      local ok, stats = pcall(require, "lazy")
-      if ok then
+      local fok, stats = pcall(require, "lazy")
+      if fok then
         stats = stats.stats()
         local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
         return "⚡ Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms"
@@ -39,10 +59,7 @@ return {
     end
 
     dashboard.section.footer.val = footer()
-
-    -- Apply Catppuccin highlights
-    dashboard.section.header.opts.hl = "AlphaHeader"
-    dashboard.section.buttons.opts.hl = "AlphaButtons"
+    if colors then vim.api.nvim_set_hl(0, "AlphaFooter", { fg = colors.overlay1 }) end
     dashboard.section.footer.opts.hl = "AlphaFooter"
 
     alpha.setup(dashboard.opts)
@@ -51,18 +68,17 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "AlphaReady",
       callback = function()
-        vim.opt.laststatus = 0
         local buf = vim.api.nvim_get_current_buf()
         vim.bo[buf].filetype = "alpha"
         vim.bo[buf].bufhidden = "wipe"
       end,
     })
 
-    -- Restore statusline when leaving Alpha
-    vim.api.nvim_create_autocmd("BufLeave", {
-      pattern = "alpha",
+    -- Show/hide statusline based on current buffer filetype
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave" }, {
       callback = function()
-        vim.opt.laststatus = 3
+        local buf = vim.api.nvim_get_current_buf()
+        vim.opt.laststatus = vim.bo[buf].filetype == "alpha" and 0 or 3
       end,
     })
   end,

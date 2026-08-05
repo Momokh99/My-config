@@ -10,8 +10,8 @@ keymap("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
 keymap("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
 keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Clear search highlighting with ESC (normal + visual mode, noremap to avoid conflicts)
-keymap({ "n", "x" }, "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true, silent = true })
+-- Clear search highlighting with ESC (normal + visual mode), trailing <Esc> exits visual mode
+keymap({ "n", "x" }, "<Esc>", "<cmd>nohlsearch<CR><Esc>", { noremap = true, silent = true })
 
 
 
@@ -32,5 +32,8 @@ keymap("n", "<L>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- Run current file in terminal
 keymap("n", "<leader>r", function()
+	require("config.my_runner").runCurrentFile()
+end, { desc = "Run current file" })
+keymap("n", "<leader><CR>", function()
 	require("config.my_runner").runCurrentFile()
 end, { desc = "Run current file" })
