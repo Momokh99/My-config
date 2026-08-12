@@ -27,8 +27,8 @@ keymap("n", "<leader>eh", "<cmd>Hexplore<cr>", { desc = "Explore Horizontal Spli
 -- Buffer Navigation
 keymap("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete/Close Buffer" })
 keymap("n", "<leader>bl", "<cmd>ls<cr>", { desc = "List Buffers" })
-keymap("n", "<H>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-keymap("n", "<L>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+keymap("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+keymap("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- Run current file in terminal
 keymap("n", "<leader>r", function()

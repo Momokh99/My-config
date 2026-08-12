@@ -56,7 +56,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 
     -- Navigation
-    bind("l", "<CR>", "Open File / Enter Dir")
+    local function open_item()
+      local path = vim.fn.expand("<cfile>")
+      if path ~= "" and vim.fn.isdirectory(path) == 1 then
+        vim.cmd("e " .. vim.fn.fnameescape(path))
+      elseif path ~= "" then
+        local netrw_buf = vim.api.nvim_get_current_buf()
+        vim.cmd("tabnew " .. vim.fn.fnameescape(path))
+        vim.api.nvim_buf_delete(netrw_buf, { force = true })
+      end
+    end
+    vim.keymap.set("n", "l", open_item, { buffer = true, desc = "Open file in new tab / Enter dir" })
+    vim.keymap.set("n", "<CR>", open_item, { buffer = true, desc = "Open file in new tab / Enter dir" })
     bind("h", "-", "Go Up Dir")
 
     -- File / Directory Operations

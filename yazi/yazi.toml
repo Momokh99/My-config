@@ -1,11 +1,11 @@
-[manager]
+[mgr]
 ratio          = [ 1, 3, 4 ]
 sort_by        = "alphabetical"
 sort_sensitive = false
 sort_reverse   = false
 sort_dir_first = true
 sort_translit  = true
-show_hidden    = false
+show_hidden    = true
 show_symlink   = true
 linemode       = "size"
 
