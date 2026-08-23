@@ -17,13 +17,13 @@ autocmd("BufWritePre", {
 	end,
 })
 
--- Automatically format Lua and JSON on save using native LSP
+-- Automatically format Lua, JSON and HTML on save using native LSP
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.lua", "*.json" },
+  pattern = { "*.lua", "*.json", "*.html" },
   callback = function(args)
     vim.lsp.buf.format({ bufnr = args.buf, timeout_ms = 2000 })
   end,
-  desc = "Format Lua and JSON on save via native LSP",
+  desc = "Format Lua, JSON and HTML on save via native LSP",
 })
 
 -- Native auto-pairs for quotes and brackets

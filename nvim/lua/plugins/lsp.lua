@@ -3,10 +3,12 @@ return {
 	opts = {
 		ensure_installed = {
 			"html",
+			"jsonls",
 			"bashls",
 			"cssls",
 			"lua_ls",
 			"pyright",
+			"ts_ls",
 		},
 	},
 	dependencies = {

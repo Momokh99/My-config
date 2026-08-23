@@ -19,10 +19,8 @@ keymap({ "n", "x" }, "<Esc>", "<cmd>nohlsearch<CR><Esc>", { noremap = true, sile
 keymap("n", "<leader>eb", "<cmd>Explore<cr>", { desc = "Explore Buffer (netrw)" })
 
 -- Open netrw in vertical split
-keymap("n", "<leader>ev", "<cmd>Vexplore<cr>", { desc = "Explore Vertical Split (netrw)" })
+keymap("n", "<leader>ee", "<cmd>Vexplore<cr>", { desc = "Explore Vertical Split (netrw)" })
 
--- Open netrw in horizontal split
-keymap("n", "<leader>eh", "<cmd>Hexplore<cr>", { desc = "Explore Horizontal Split (netrw)" })
 
 -- Buffer Navigation
 keymap("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete/Close Buffer" })
@@ -32,8 +30,8 @@ keymap("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- Run current file in terminal
 keymap("n", "<leader>r", function()
-	require("config.my_runner").runCurrentFile()
+    require("config.my_runner").runCurrentFile()
 end, { desc = "Run current file" })
 keymap("n", "<leader><CR>", function()
-	require("config.my_runner").runCurrentFile()
+    require("config.my_runner").runCurrentFile()
 end, { desc = "Run current file" })

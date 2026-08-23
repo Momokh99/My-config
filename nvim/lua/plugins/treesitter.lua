@@ -11,6 +11,9 @@ return {
 			"query",
 			"python",
 			"bash",
+			"javascript",
+			"typescript",
+			"tsx",
 		})
 
 		vim.api.nvim_create_autocmd("FileType", {
