@@ -41,7 +41,7 @@ return {
       button("f", "󰍉", "Find File", "<cmd>Telescope find_files<cr>", "Function"),
       button("r", "󰋚", "Recent Files", "<cmd>Telescope oldfiles<cr>", "String"),
       button("g", "󰈞", "Live Grep", "<cmd>Telescope live_grep<cr>", "Keyword"),
-      button("e", "󰙅", "Explorer (netrw)", "<cmd>Explore<cr>", "Type"),
+      button("e", "󰙅", "File Explorer", "<cmd>NvimTreeToggle<cr>", "Type"),
       button("b", "󰓩", "Open Buffers", "<cmd>Telescope buffers<cr>", "Number"),
       button("u", "󰊤", "Update Plugins", "<cmd>Lazy sync<cr>", "Operator"),
       button("q", "󰅚", "Quit Neovim", "<cmd>qa<cr>", "DiagnosticError"),

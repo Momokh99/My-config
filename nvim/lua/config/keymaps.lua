@@ -15,11 +15,7 @@ keymap({ "n", "x" }, "<Esc>", "<cmd>nohlsearch<CR><Esc>", { noremap = true, sile
 
 
 
--- Open netrw in current buffer
-keymap("n", "<leader>eb", "<cmd>Explore<cr>", { desc = "Explore Buffer (netrw)" })
-
--- Open netrw in vertical split
-keymap("n", "<leader>ee", "<cmd>Vexplore<cr>", { desc = "Explore Vertical Split (netrw)" })
+-- File Explorer (nvim-tree handles these via plugin keys)
 
 
 -- Buffer Navigation
@@ -27,6 +23,9 @@ keymap("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete/Close Buffer" })
 keymap("n", "<leader>bl", "<cmd>ls<cr>", { desc = "List Buffers" })
 keymap("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 keymap("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+
+-- New line at end of line
+keymap("n", "<CR>", "A<CR><Esc>", { desc = "New line at end of line" })
 
 -- Run current file in terminal
 keymap("n", "<leader>r", function()
