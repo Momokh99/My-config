@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "yazi" "quickshell" "nvim")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "wofi-screenshot" "yazi" "quickshell" "nvim")
 
 echo " Starting manual symlinking ..."
 
@@ -23,11 +23,18 @@ for folder in "${configs[@]}"; do
     mkdir -p "$CDIR/$folder"
 
     # 3. Symlink each item inside the source folder into the target
-    for item in "$DOTS_DIR/$folder"/* "$DOTS_DIR/$folder"/.*; do
+    #    Use dotglob/nullglob so .* and * are handled cleanly, and guard
+    #    against self/recursive symlinks so re-running is idempotent.
+    shopt -s dotglob nullglob
+    for item in "$DOTS_DIR/$folder"/*; do
       basename_item=$(basename "$item")
       [[ "$basename_item" = "." || "$basename_item" = ".." ]] && continue
-      ln -sfr "$item" "$CDIR/$folder/$basename_item"
+      target="$CDIR/$folder/$basename_item"
+      # Skip if this item would link onto itself (prevents recursion)
+      [[ "$(readlink -f "$item")" = "$(readlink -f "$target")" ]] && continue
+      ln -sfr "$item" "$target"
     done
+    shopt -u dotglob nullglob
 
     echo "Linked contents of $folder"
   fi
@@ -43,6 +50,14 @@ if [ -e "$BINDIR/wofi-power" ] && [ ! -L "$BINDIR/wofi-power" ]; then
 fi
 ln -sf "$DOTS_DIR/wofi-power.sh" "$BINDIR/wofi-power"
 echo "Linked wofi-power.sh → $BINDIR/wofi-power"
+
+# ─── Wofi-screenshot script symlink ───
+if [ -e "$BINDIR/wofi-screenshot" ] && [ ! -L "$BINDIR/wofi-screenshot" ]; then
+  echo "Backing up wofi-screenshot → wofi-screenshot.bak"
+  mv "$BINDIR/wofi-screenshot" "$BINDIR/wofi-screenshot.bak"
+fi
+ln -sf "$DOTS_DIR/wofi-screenshot.sh" "$BINDIR/wofi-screenshot"
+echo "Linked wofi-screenshot.sh → $BINDIR/wofi-screenshot"
 
 # ─── Tmux config (symlinked into $HOME, not ~/.config) ───
 if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
