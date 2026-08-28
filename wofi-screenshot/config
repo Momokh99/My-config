@@ -1,0 +1,13 @@
+show=dmenu
+location=bottom
+yoffset=10
+width=900
+columns=4
+lines=1
+content_halign=center
+layer=overlay
+insensitive=true
+hide_search=true
+no_actions=true
+prompt=Take Screenshot
+filter_rate=100

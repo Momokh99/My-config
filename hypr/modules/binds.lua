@@ -140,6 +140,4 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 local screenshotDir = os.getenv("HOME") .. "/Pictures/screenshoot"
 os.execute("mkdir -p " .. screenshotDir)
 
-hl.bind("Print", hl.dsp.exec_cmd("grim " .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"))
-hl.bind("SUPER + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. screenshotDir .. "/$(date +'%Y-%m-%d_%H-%M-%S').png"))
-hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
+hl.bind("Print", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-screenshot"))
