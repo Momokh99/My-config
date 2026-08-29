@@ -17,8 +17,7 @@ opt.updatetime = 250 -- Faster completion / UI response
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.laststatus = 3 -- Global statusline
 
--- Netrw config (disabled, using nvim-tree instead)
--- vim.g.netrw_banner = 0
--- vim.g.netrw_keepdir = 0
--- vim.g.netrw_winsize = 25
--- vim.g.netrw_sort_sequence = "[\\/]$,*"
+vim.g.netrw_banner = 0 -- Hide netrw banner
+vim.g.netrw_keepdir = 0 -- Keep current directory
+vim.g.netrw_winsize = 25 -- Netrw window size
+vim.g.netrw_sort_sequence = "[\\/]$,*"
