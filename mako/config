@@ -1,9 +1,7 @@
 # ==============================================================================
-# Global Settings - Tokyo Night Theme
+# Global Settings
 # ==============================================================================
 font=monospace 14
-background-color=#1a1b26
-text-color=#c0caf5
 
 # Behavior & Queue
 sort=-time
@@ -17,26 +15,13 @@ height=110
 padding=15
 margin=15,15
 
-# Borders & Style (Tokyo Night Cyan Accent)
+# Borders & Style
 border-size=2
-border-color=#7dcfff
 border-radius=20
 
 # Icons
 icons=0
 max-icon-size=64
 
-# ==============================================================================
-# Urgency Rules
-# ==============================================================================
-[urgency=low]
-border-color=#9ece6a
-default-timeout=3000
-
-[urgency=normal]
-border-color=#7dcfff
-default-timeout=3000
-
-[urgency=high]
-border-color=#f7768e
-default-timeout=0
+# Generated colors from matugen
+include=~/.config/mako/mako-colors

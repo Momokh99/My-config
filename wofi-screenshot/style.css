@@ -1,8 +1,10 @@
+@import url("colors.css");
+
 window {
   margin: 0px;
-  border: 2px solid #7aa2f7;
+  border: 2px solid @accent;
   border-bottom: none;
-  background-color: #24283b;
+  background-color: @bg;
   border-radius: 12px 12px 0px 0px;
   font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
   font-size: 14px;
@@ -13,7 +15,7 @@ window {
 #outer-box {
   margin: 8px;
   padding: 0px;
-  background-color: #24283b;
+  background-color: @bg;
 }
 
 #input {
@@ -21,13 +23,13 @@ window {
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
-  background-color: #1a1b26;
-  color: #c0caf5;
+  background-color: @input-bg;
+  color: @fg;
   font-size: 14px;
 }
 
 #input:focus {
-  border: 1px solid #7aa2f7;
+  border: 1px solid @accent;
 }
 
 #scroll {
@@ -38,13 +40,13 @@ window {
 #inner-box {
   margin: 0px;
   padding: 0px;
-  color: #c0caf5;
+  color: @fg;
 }
 
 #entry {
   padding: 10px 12px;
   margin: 2px 4px;
-  background-color: #1a1b26;
+  background-color: @input-bg;
   border-radius: 8px;
 
   transition: all 0.15s ease-out;
@@ -56,18 +58,18 @@ window {
 }
 
 #entry:selected {
-  background-color: #2f3549;
+  background-color: @selected;
   outline: none;
 }
 
 #entry:selected #text {
-  color: #bb9af7;
+  color: @selected-fg;
   font-weight: bold;
 }
 
 #entry:hover {
-  background-color: #2f3549;
-  border: 1px solid #7aa2f7;
+  background-color: @selected;
+  border: 1px solid @accent;
 }
 
 @keyframes fadeIn {

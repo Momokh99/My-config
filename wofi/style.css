@@ -1,7 +1,9 @@
+@import url("colors.css");
+
 window {
   margin: 0px;
-  border: 2px solid #7aa2f7;
-  background-color: #24283b;
+  border: 2px solid @accent;
+  background-color: @bg;
   border-radius: 12px;
   font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
   font-size: 14px;
@@ -10,25 +12,25 @@ window {
 #outer-box {
   margin: 5px;
   padding: 10px;
-  background-color: #24283b;
+  background-color: @bg;
 }
 
 #input {
   margin: 5px;
   border: none;
-  color: #c0caf5;
-  background-color: #1a1b26;
+  color: @fg;
+  background-color: @input-bg;
   border-radius: 8px;
   padding: 8px;
 }
 
 #inner-box {
   margin: 5px;
-  color: #c0caf5;
+  color: @fg;
 }
 
 #entry:selected {
-  background-color: #2f3549;
+  background-color: @selected;
   border-radius: 8px;
   outline: none;
 }
@@ -38,6 +40,6 @@ window {
 }
 
 #text:selected {
-  color: #bb9af7;
+  color: @selected-fg;
   font-weight: bold;
 }

@@ -1,3 +1,5 @@
+@import url("colors.css");
+
 * {
   font-family: "JetBrainsMonoNL Nerd Font", "Noto Color Emoji", sans-serif;
   font-size: 13px;
@@ -6,43 +8,38 @@
 #waybar {
   min-height: 22px;
   margin: 0;
-  color: #7aa2f7;
-  background-color: #1a1b26;
+  color: @accent;
+  background-color: @bg;
 }
 
 #workspaces button {
-  color: #7aa2f7;
+  color: @accent;
   padding: 0 0.2em;
   background-color: transparent;
 }
 
 #workspaces button.active {
-  color: #b4befe;
+  color: @accent-fg;
 }
 
 #workspaces button.focused {
-  color: #89b4fa;
+  color: @accent-fg;
   background: transparent;
   border-radius: 15px;
 }
-
 
 #workspaces button:hover {
   background: transparent;
-  color: #f2cdcd;
+  color: @selected-fg;
   border-radius: 15px;
 }
 
-
-
-
-
 #workspaces button.empty {
-  color: #565f89;
+  color: @surface-fg;
 }
 
 #window-title {
-  color: #7aa2f7;
+  color: @accent;
   padding: 0 0.5em;
 }
 
@@ -56,14 +53,12 @@
   padding: 0 0.5em;
 }
 
-
-
 #battery {
-  color: #7aa2f7;
+  color: @accent;
 }
 
 #battery.critical:not(.charging) {
-  color: #f53c3c;
+  color: @critical;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -73,5 +68,5 @@
 
 #network {
   background-color: transparent;
-  color: #7aa2f7;
+  color: @accent;
 }

@@ -110,16 +110,19 @@ alias ...='cd ../..'
 alias gs='git status'
 alias gd='git diff'
 alias gap='git add -p'
-# yay 
-alias i = 'yay -S'
-alias u = 'yay'
-alias s = 'yay -s'
+# yay
+alias s='yay -Ss'
+alias i='yay -S'
+alias u='yay -Syu'
 # =============================================================================
 # TOOLS
 # =============================================================================
 # zoxide (smart navigation)
 eval "$(zoxide init --cmd cd zsh)"
 
+
+
+export EDITOR=nvim
 # =============================================================================
 # END OF .zshrc
 # =============================================================================

@@ -4,15 +4,16 @@
 
 -- Set programs that you use
 local terminal = "kitty"
-local fileManager = "kitty -e yazi"
+local fileManager = terminal .. " -e yazi"
 local menu = "wofi"
 local browser = "helium-browser"
 local notification = "mako"
 local projectDir = "~/Projects/My-config"
 local powerMenu = os.getenv("HOME") .. "/.local/bin/wofi-power"
 
--- Gap defaults
-gaps = { in_size = 5, out_size = 8 }
+-- Gap defaults (used only for the toggle keybind below)
+local gaps_in = 5
+local gaps_out = 8
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -32,12 +33,12 @@ hl.bind(
 hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("hyprctl dispatch restart"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("kitty -e opencode"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e nvim"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("kitty -e nvim " .. projectDir))
-hl.bind("SUPER + I", hl.dsp.exec_cmd("kitty --class impala -e impala"))
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(terminal .. " -e opencode"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(terminal .. " -e nvim"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(terminal .. " -e nvim " .. projectDir))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(terminal .. " --class impala -e impala"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-hl.bind("SUPER + D", hl.dsp.exec_cmd("kitty --class bluetui-floating -e bluetui"))
+hl.bind("SUPER + D", hl.dsp.exec_cmd(terminal .. " --class bluetui-floating -e bluetui"))
 -- Keybind to show power menu (Super + L)
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(powerMenu))
 
@@ -84,10 +85,10 @@ hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("pkill waybar || waybar"))
 hl.bind(
 	"CTRL + Escape",
 	hl.dsp.exec_cmd(
-		[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "{print \$4}"); if [ "$cur" = "0" ]; then hyprctl eval "hl.config({ general = { gaps_in = ]]
-			.. gaps.in_size
+	[[sh -c 'cur=$(hyprctl getoption general:gaps_in | awk "{print \$4}"); if [ "$cur" = "0" ]; then hyprctl eval "hl.config({ general = { gaps_in = ]]
+			.. gaps_in
 			.. [[, gaps_out = ]]
-			.. gaps.out_size
+			.. gaps_out
 			.. [[, rounding = 10, border_size = 2 } })"; else hyprctl eval "hl.config({ general = { gaps_in = 0, gaps_out = 0, rounding = 0, border_size = 0 } })"; fi']]
 	)
 )
@@ -136,8 +137,5 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 ---------------------
 ---- SCREENSHOTS ----
 ---------------------
-
-local screenshotDir = os.getenv("HOME") .. "/Pictures/screenshoot"
-os.execute("mkdir -p " .. screenshotDir)
 
 hl.bind("Print", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-screenshot"))
