@@ -10,4 +10,5 @@
 hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd("waybar & hyprpaper & mako & hypridle")
+	hl.exec_cmd("matugen-wallpaper-hook &")
 end)

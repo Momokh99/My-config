@@ -59,6 +59,22 @@ fi
 ln -sf "$DOTS_DIR/wofi-screenshot.sh" "$BINDIR/wofi-screenshot"
 echo "Linked wofi-screenshot.sh → $BINDIR/wofi-screenshot"
 
+# ─── Matugen wallpaper hook symlink ───
+if [ -e "$BINDIR/matugen-wallpaper-hook" ] && [ ! -L "$BINDIR/matugen-wallpaper-hook" ]; then
+  echo "Backing up matugen-wallpaper-hook → matugen-wallpaper-hook.bak"
+  mv "$BINDIR/matugen-wallpaper-hook" "$BINDIR/matugen-wallpaper-hook.bak"
+fi
+ln -sf "$DOTS_DIR/matugen-wallpaper-hook.sh" "$BINDIR/matugen-wallpaper-hook"
+echo "Linked matugen-wallpaper-hook.sh → $BINDIR/matugen-wallpaper-hook"
+
+# ─── set-theme.sh symlink ───
+if [ -e "$BINDIR/set-theme" ] && [ ! -L "$BINDIR/set-theme" ]; then
+  echo "Backing up set-theme → set-theme.bak"
+  mv "$BINDIR/set-theme" "$BINDIR/set-theme.bak"
+fi
+ln -sf "$DOTS_DIR/set-theme.sh" "$BINDIR/set-theme"
+echo "Linked set-theme.sh → $BINDIR/set-theme"
+
 # ─── Tmux config (symlinked into $HOME, not ~/.config) ───
 if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
   echo "Backing up .tmux.conf → .tmux.conf.bak"
