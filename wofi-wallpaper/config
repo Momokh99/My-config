@@ -1,10 +1,10 @@
 show=dmenu
 allow_images=true
-image_size=112
+image_size=160
 location=center
-width=780
+width=900
 lines=6
-columns=3
+columns=4
 content_halign=center
 layer=overlay
 insensitive=true
