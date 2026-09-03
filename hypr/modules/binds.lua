@@ -139,3 +139,9 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 ---------------------
 
 hl.bind("Print", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-screenshot"))
+
+---------------------
+---- WALLPAPER ------
+---------------------
+
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-wallpaper"))

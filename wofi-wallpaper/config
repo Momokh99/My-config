@@ -1,0 +1,13 @@
+show=dmenu
+allow_images=true
+location=center
+width=600
+lines=8
+columns=4
+content_halign=center
+layer=overlay
+insensitive=true
+hide_search=true
+no_actions=true
+prompt=Wallpaper
+filter_rate=100

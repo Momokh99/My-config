@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "wofi-screenshot" "yazi" "nvim")
+configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
 
 echo " Starting manual symlinking ..."
 
@@ -74,6 +74,14 @@ if [ -e "$BINDIR/set-theme" ] && [ ! -L "$BINDIR/set-theme" ]; then
 fi
 ln -sf "$DOTS_DIR/set-theme.sh" "$BINDIR/set-theme"
 echo "Linked set-theme.sh → $BINDIR/set-theme"
+
+# ─── Wofi-wallpaper script symlink ───
+if [ -e "$BINDIR/wofi-wallpaper" ] && [ ! -L "$BINDIR/wofi-wallpaper" ]; then
+  echo "Backing up wofi-wallpaper → wofi-wallpaper.bak"
+  mv "$BINDIR/wofi-wallpaper" "$BINDIR/wofi-wallpaper.bak"
+fi
+ln -sf "$DOTS_DIR/wofi-wallpaper.sh" "$BINDIR/wofi-wallpaper"
+echo "Linked wofi-wallpaper.sh → $BINDIR/wofi-wallpaper"
 
 # ─── Tmux config (symlinked into $HOME, not ~/.config) ───
 if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
