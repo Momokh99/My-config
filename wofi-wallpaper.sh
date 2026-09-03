@@ -2,12 +2,11 @@
 # Wallpaper picker with image previews (wofi dmenu mode)
 WALL_DIR="$HOME/.config/hypr/wallpaper"
 
-# Pipe entries to wofi. wofi's image escape is colon-delimited:
-# name:img:/path/to/image  (wofi splits on ':' and treats 'img' as an image mode)
+# Pipe entries to wofi. wofi splits on ':' and treats 'img' as an image mode.
+# No leading text token so only the thumbnail renders (no filename label).
 chosen=$( \
   while IFS= read -r wp; do
-    name=$(basename "$wp")
-    printf '%s:img:%s\n' "$name" "$wp"
+    printf ':img:%s\n' "$wp"
   done < <(find -L "$WALL_DIR" -maxdepth 1 -type f \
     \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \) | sort) \
   | wofi --dmenu -I \
@@ -16,7 +15,7 @@ chosen=$( \
 
 [ -z "$chosen" ] && exit 0
 
-# Extract the wallpaper filename (everything before the first ':')
-selected="${chosen%%:*}"
+# Extract the image path after ':img:'
+selected="${chosen#*:img:}"
 
-exec "$HOME/.local/bin/set-theme" "$WALL_DIR/$selected"
+exec "$HOME/.local/bin/set-theme" "$selected"

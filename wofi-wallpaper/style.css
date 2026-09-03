@@ -44,6 +44,8 @@ window {
 
 #text {
   display: none;
+  font-size: 0;
+  color: transparent;
 }
 
 #entry:selected {
