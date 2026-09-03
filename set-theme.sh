@@ -20,7 +20,7 @@ matugen image "$WALLPAPER"
 if [ -n "$MONITOR" ]; then
     hyprctl hyprpaper wallpaper "$MONITOR,$WALLPAPER"
 else
-    MONITORS=$(hyprctl monitors -j | jq -r '.[].name')
+    MONITORS=$(hyprctl monitors -j | grep -o '"name": *"[^"]*"' | cut -d'"' -f4)
     for mon in $MONITORS; do
         hyprctl hyprpaper wallpaper "$mon,$WALLPAPER"
     done
