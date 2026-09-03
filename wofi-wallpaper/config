@@ -1,8 +1,8 @@
 show=dmenu
 allow_images=true
-image_size=160
+image_size=190
 location=center
-width=900
+width=1000
 lines=6
 columns=4
 content_halign=center
