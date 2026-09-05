@@ -144,4 +144,4 @@ hl.bind("Print", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-screensh
 ---- WALLPAPER ------
 ---------------------
 
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-wallpaper"))
+hl.bind("CTRL + W", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/wofi-wallpaper"))
