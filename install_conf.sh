@@ -91,5 +91,13 @@ fi
 ln -sfr "$DOTS_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 echo "Linked .tmux.conf → $HOME/.tmux.conf"
 
+# ─── kdeglobals (KDE color scheme selection, symlinked into ~/.config) ───
+if [ -f "$HOME/.config/kdeglobals" ] && [ ! -L "$HOME/.config/kdeglobals" ]; then
+  echo "Backing up kdeglobals → kdeglobals.bak"
+  cp "$HOME/.config/kdeglobals" "$HOME/.config/kdeglobals.bak"
+fi
+ln -sfr "$DOTS_DIR/kdeglobals" "$HOME/.config/kdeglobals"
+echo "Linked kdeglobals → $HOME/.config/kdeglobals"
+
 echo "────────────────────────────────────────────────────────────"
 echo " Finished linking"

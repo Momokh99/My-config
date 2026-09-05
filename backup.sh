@@ -6,7 +6,7 @@ mkdir -p "$BACK_UP_DIR"
 #in .config
 configs=("waybar" "fastfetch" "kitty" "hypr" "matugen" "mako" "gtk-3.0" "gtk-4.0" "qt5ct" "qt6ct" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
 #in HOME
-dotfiles=(".bashrc" ".zshrc")
+dotfiles=(".bashrc" ".zshrc" ".config/kdeglobals")
 
 echo " starting backup to $BACK_UP_DIR ..."
 
