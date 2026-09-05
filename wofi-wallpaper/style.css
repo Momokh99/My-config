@@ -48,7 +48,6 @@ window {
 #entry {
   padding: 6px;
   margin: 4px;
-  min-height: 210px;
   background-color: @input-bg;
   border: 1px solid transparent;
   border-radius: 8px;
