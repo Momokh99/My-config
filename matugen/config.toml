@@ -1,0 +1,39 @@
+[config]
+version_check = false
+fallback_color = "#7aa2f7"
+prefer = "closest-to-fallback"
+caching = false
+contrast = 0.0
+source_color_index = 0
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.lua"
+output_path = "~/.config/hypr/colors.lua"
+index = 1
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/.config/kitty/themes/Matugen.conf"
+post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.mako]
+input_path = "~/.config/matugen/templates/mako-colors"
+output_path = "~/.config/mako/mako-colors"
+post_hook = "makoctl reload"
+
+[templates.waybar]
+input_path = "~/.config/matugen/templates/waybar-colors.css"
+output_path = "~/.config/waybar/colors.css"
+post_hook = "pkill waybar; waybar &"
+
+[templates.wofi]
+input_path = "~/.config/matugen/templates/wofi-colors.css"
+output_path = "~/.config/wofi/colors.css"
+
+[templates.wofi_power]
+input_path = "~/.config/matugen/templates/wofi-colors.css"
+output_path = "~/.config/wofi-power/colors.css"
+
+[templates.wofi_screenshot]
+input_path = "~/.config/matugen/templates/wofi-colors.css"
+output_path = "~/.config/wofi-screenshot/colors.css"

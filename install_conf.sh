@@ -6,7 +6,7 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
+configs=("waybar" "fastfetch" "kitty" "hypr" "matugen" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
 
 echo " Starting manual symlinking ..."
 
