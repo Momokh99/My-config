@@ -30,12 +30,12 @@ hl.window_rule({
 })
 
 -- Layer rules also return a handle.
-local noAnimWofi = hl.layer_rule({
-	name = "no-anim-wofi",
-	match = { namespace = "^wofi$" },
-	no_anim = true,
-})
-noAnimWofi:set_enabled(true)
+-- local overlayLayerRule = hl.layer_rule({
+--     name  = "no-anim-overlay",
+--     match = { namespace = "^my-overlay$" },
+--     no_anim = true,
+-- })
+-- overlayLayerRule:set_enabled(false)
 
 -- Hyprland-run windowrule
 hl.window_rule({
