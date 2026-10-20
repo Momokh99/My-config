@@ -46,7 +46,7 @@ post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings s
 [templates.gtk4]
 input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = "~/.config/gtk-4.0/colors.css"
-post_hook = "~/.config/matugen/post-hook-scripts/gtk-themes-reload.sh"
+post_hook = "bash ~/.config/matugen/post-hook-scripts/gtk-themes-reload.sh"
 
 [templates.qt5ct]
 input_path = "~/.config/matugen/templates/qtct-colors.conf"

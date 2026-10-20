@@ -6,7 +6,7 @@
 local terminal = "kitty"
 local fileManager = terminal .. " -e yazi"
 local menu = "wofi"
-local browser = "helium-browser"
+local browser = "helium"
 local notification = "mako"
 local projectDir = "~/Projects/My-config"
 local powerMenu = os.getenv("HOME") .. "/.local/bin/wofi-power"
