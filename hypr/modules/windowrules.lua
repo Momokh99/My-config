@@ -5,9 +5,9 @@ local function right_panel(name, class)
 		name = name,
 		match = { class = class },
 		float = true,
-		size = { 600, 550 },
+		size = { 600, "monitor_h" }, -- full height, no vertical gap
 		-- window_w/window_h resolve to the goal size (set by `size` above)
-		move = { "(monitor_w-window_w-16)", "(monitor_h-window_h)/2" },
+		move = { "(monitor_w-window_w-16)", "0" },
 		animation = "slide right",
 	})
 end
