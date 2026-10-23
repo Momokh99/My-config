@@ -1,6 +1,6 @@
 hl.window_rule({
-	name = "nmtui_rules",
-	match = { class = "^(nmtui)$" },
+	name = "wifitui_rules",
+	match = { class = "^(wifitui)$" },
 	float = true,
 	center = true,
 	size = { 600, 550 }, -- Some Lua-Hyprland iterations prefer explicit width/height keys

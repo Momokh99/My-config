@@ -67,7 +67,7 @@
     "format-linked": "󰈀",
     "format-disconnected": "󰤭",
     "format-alt": "󰈀 {ipaddr}",
-    "on-click": "kitty --class nmtui -e nmtui"
+    "on-click": "kitty --class wifitui -e wifitui"
   },
   "bluetooth": {
     "format": "󰂲",
