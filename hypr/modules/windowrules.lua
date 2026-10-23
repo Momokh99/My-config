@@ -6,7 +6,7 @@ local function right_panel(name, class)
 		name = name,
 		match = { class = class },
 		float = true,
-		size = { 600, "monitor_h-120" }, -- 60 px off top and bottom
+		size = { 400, "monitor_h-120" }, -- 60 px off top and bottom
 		-- window_w/window_h resolve to the goal size (set by `size` above)
 		move = { "(monitor_w-window_w)", "60" }, -- flush with the right edge
 		rounding = 6, -- slightly rounded corners (right side is flush with the screen)
