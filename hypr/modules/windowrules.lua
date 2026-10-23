@@ -9,7 +9,8 @@ local function right_panel(name, class)
 		size = { 600, "monitor_h-120" }, -- 60 px off top and bottom
 		-- window_w/window_h resolve to the goal size (set by `size` above)
 		move = { "(monitor_w-window_w)", "60" }, -- flush with the right edge
-		rounding = 0, -- sharp corners (right side is flush with the screen)
+		rounding = 6, -- slightly rounded corners (right side is flush with the screen)
+		opacity = "0.9 override", -- make it absolute, independent of active/inactive state
 		animation = "slide right",
 	})
 end
