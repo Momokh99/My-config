@@ -27,14 +27,20 @@ generate() {
     local wp="$1" thumb tmp
     thumb="$(thumb_for "$wp")"
     if [ ! -f "$thumb" ]; then
-        tmp="$thumb.tmp.$$"
-        if magick "$wp" -auto-orient -thumbnail "${THUMB_SIZE}x${THUMB_SIZE}^" \
-            -gravity center -extent "${THUMB_SIZE}x${THUMB_SIZE}" \
-            -strip -quality 82 "$tmp" 2>/dev/null; then
-            mv -f "$tmp" "$thumb"
+        if command -v magick >/dev/null 2>&1; then
+            tmp="$thumb.tmp.$$"
+            if magick "$wp" -auto-orient -thumbnail "${THUMB_SIZE}x${THUMB_SIZE}^" \
+                -gravity center -extent "${THUMB_SIZE}x${THUMB_SIZE}" \
+                -strip -quality 82 "$tmp" 2>/dev/null; then
+                mv -f "$tmp" "$thumb"
+            else
+                rm -f "$tmp"
+                thumb="$wp" # fall back to the original if conversion fails
+            fi
         else
-            rm -f "$tmp"
-            thumb="$wp" # fall back to the original if conversion fails
+            # No ImageMagick yet (before the next rebuild): use the original,
+            # unless a cached preview from an earlier run is available.
+            thumb="$wp"
         fi
     fi
     printf '%s\t%s\n' "$thumb" "$wp"
@@ -48,13 +54,8 @@ while IFS=$'\t' read -r thumb wp; do
     ORIGINAL["$thumb"]="$wp"
     entries+=":img:${thumb}"$'\n'
 done < <(
-    if command -v magick >/dev/null 2>&1; then
-        printf '%s\0' "${wallpapers[@]}" |
-            xargs -0 -P "$(nproc)" -n 1 bash -c 'generate "$1"' _
-    else
-        # No ImageMagick (e.g. before the next rebuild): use originals.
-        for wp in "${wallpapers[@]}"; do printf '%s\t%s\n' "$wp" "$wp"; done
-    fi
+    printf '%s\0' "${wallpapers[@]}" |
+        xargs -0 -P "$(nproc)" -n 1 bash -c 'generate "$1"' _
 )
 
 # Drop previews for wallpapers that were changed or deleted.
