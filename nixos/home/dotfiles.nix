@@ -39,6 +39,5 @@ in
   home.file.".local/bin/wofi-power".source = script "wofi-power" "wofi-power.sh";
   home.file.".local/bin/wofi-screenshot".source = script "wofi-screenshot" "wofi-screenshot.sh";
   home.file.".local/bin/wofi-wallpaper".source = script "wofi-wallpaper" "wofi-wallpaper.sh";
-  home.file.".local/bin/matugen-wallpaper-hook".source = script "matugen-wallpaper-hook" "matugen-wallpaper-hook.sh";
   home.file.".local/bin/set-theme".source = script "set-theme" "set-theme.sh";
 }

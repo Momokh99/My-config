@@ -1,30 +1,44 @@
 #!/usr/bin/env bash
-# set-theme.sh — Set wallpaper and generate matching colors with matugen
-# Usage: set-theme.sh /path/to/image.png [monitor]
+# set-theme.sh — set the wallpaper with a fade and regenerate matching colours.
+# Usage: set-theme.sh <image> | set-theme.sh --restore
+set -u
 
-if [ -z "$1" ]; then
-    echo "Usage: set-theme.sh /path/to/image.png [monitor]"
+TRANSITION_DURATION="${TRANSITION_DURATION:-1.5}"
+STATE="${XDG_CACHE_HOME:-$HOME/.cache}/current-wallpaper"
+
+if [ "${1:-}" = "--restore" ]; then
+    # Restore the last wallpaper, or a sane default on first login.
+    if [ -r "$STATE" ] && [ -f "$(cat "$STATE")" ]; then
+        WALLPAPER="$(cat "$STATE")"
+    else
+        WALLPAPER="$HOME/.config/hypr/wallpaper/wallpaper-26.png"
+    fi
+elif [ -n "${1:-}" ] && [ -f "${1:-}" ]; then
+    WALLPAPER="$(realpath "$1")"
+else
+    echo "Usage: set-theme.sh <image> | set-theme.sh --restore" >&2
     exit 1
 fi
 
-WALLPAPER="$(realpath "$1")"
-MONITOR="${2:-}"
-
-# 1. Preload image into hyprpaper RAM
-hyprctl hyprpaper preload "$WALLPAPER"
-
-# 2. Extract colors & update config templates with matugen
-matugen image "$WALLPAPER"
-
-# 3. Apply the wallpaper to the specified monitor or all monitors
-if [ -n "$MONITOR" ]; then
-    hyprctl hyprpaper wallpaper "$MONITOR,$WALLPAPER"
-else
-    MONITORS=$(hyprctl monitors -j | grep -o '"name": *"[^"]*"' | cut -d'"' -f4)
-    for mon in $MONITORS; do
-        hyprctl hyprpaper wallpaper "$mon,$WALLPAPER"
+# The daemon is usually started by Hyprland's autostart; make this script
+# self-sufficient for the first run or after a crash.
+if ! awww query >/dev/null 2>&1; then
+    awww-daemon >/dev/null 2>&1 &
+    for _ in $(seq 1 100); do
+        awww query >/dev/null 2>&1 && break
+        sleep 0.1
     done
 fi
 
-# 4. Unload unused preloaded wallpapers to free RAM
-hyprctl hyprpaper unload all
+awww img "$WALLPAPER" \
+    --transition-type fade \
+    --transition-duration "$TRANSITION_DURATION" \
+    --transition-fps 60 \
+    --transition-bezier .43,1.19,1,.4
+
+# Remember it so the next login restores the same wallpaper.
+mkdir -p "$(dirname "$STATE")"
+printf '%s\n' "$WALLPAPER" > "$STATE"
+
+# Regenerate the palette; matugen's post-hooks update Waybar, borders, etc.
+matugen image "$WALLPAPER"

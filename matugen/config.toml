@@ -10,7 +10,6 @@ source_color_index = 0
 input_path = "~/.config/matugen/templates/hyprland-colors.lua"
 output_path = "~/.config/hypr/colors.lua"
 index = 1
-post_hook = "hyprctl reload"
 
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
@@ -25,7 +24,7 @@ post_hook = "makoctl reload"
 [templates.waybar]
 input_path = "~/.config/matugen/templates/waybar-colors.css"
 output_path = "~/.config/waybar/colors.css"
-post_hook = "pkill waybar; waybar &"
+post_hook = "pkill -SIGUSR2 waybar"
 
 [templates.wofi]
 input_path = "~/.config/matugen/templates/wofi-colors.css"

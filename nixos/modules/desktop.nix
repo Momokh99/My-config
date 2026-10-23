@@ -21,7 +21,7 @@
     waybar
     wofi
     mako
-    hyprpaper
+    awww
     hypridle
     hyprlock
     kitty

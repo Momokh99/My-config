@@ -9,6 +9,7 @@
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
-	hl.exec_cmd("waybar & hyprpaper & mako & hypridle")
-	hl.exec_cmd(os.getenv("HOME") .. "/.local/bin/matugen-wallpaper-hook &")
+	hl.exec_cmd("waybar & mako & hypridle")
+	-- awww-daemon is started by set-theme, which also restores the last wallpaper.
+	hl.exec_cmd(os.getenv("HOME") .. "/.local/bin/set-theme --restore &")
 end)
