@@ -7,7 +7,7 @@
     lazygit
     btop
     imagemagick
-    npm
+    nodejs
     ripgrep
     fd
     fzf
