@@ -1,18 +1,19 @@
-hl.window_rule({
-	name = "wifitui_rules",
-	match = { class = "^(wifitui)$" },
-	float = true,
-	center = true,
-	size = { 600, 550 }, -- Some Lua-Hyprland iterations prefer explicit width/height keys
-})
+-- Floating TUI panels (Wi-Fi / Bluetooth): hug the right edge with a small gap
+-- and slide in/out from the right instead of using the global popin animation.
+local function right_panel(name, class)
+	hl.window_rule({
+		name = name,
+		match = { class = class },
+		float = true,
+		size = { 600, 550 },
+		-- window_w/window_h resolve to the goal size (set by `size` above)
+		move = { "(monitor_w-window_w-16)", "(monitor_h-window_h)/2" },
+		animation = "slide right",
+	})
+end
 
-hl.window_rule({
-	name = "bluetui_rules",
-	match = { class = "^(bluetui-floating)$" },
-	float = true,
-	center = true,
-	size = { 600, 550 },
-})
+right_panel("wifitui_rules", "^(wifitui)$")
+right_panel("bluetui_rules", "^(bluetui-floating)$")
 
 hl.window_rule({
 	-- Fix some dragging issues with XWayland
