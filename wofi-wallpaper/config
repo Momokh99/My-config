@@ -1,7 +1,8 @@
 show=dmenu
 allow_images=true
-image_size=170
-location=center
+image_size=120
+location=bottom
+yoffset=16
 width=700
 lines=3
 columns=4
