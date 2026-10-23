@@ -110,6 +110,7 @@
     brightnessctl
     playerctl
     zsh
+    npm
     bibata-cursors
     glib # provides gsettings, used by matugen's post-hook
     gsettings-desktop-schemas # org.gnome.desktop.* schemas for those hooks
