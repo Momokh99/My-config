@@ -1,13 +1,15 @@
--- Floating TUI panels (Wi-Fi / Bluetooth): hug the right edge with a small gap
--- and slide in/out from the right instead of using the global popin animation.
+-- Floating TUI panels (Wi-Fi / Bluetooth): docked flush at the right edge,
+-- inset 60 px from top and bottom to clear the bar, sharp corners on the
+-- docked edge, and slide in/out from the right instead of the global popin.
 local function right_panel(name, class)
 	hl.window_rule({
 		name = name,
 		match = { class = class },
 		float = true,
-		size = { 600, "monitor_h" }, -- full height, no vertical gap
+		size = { 600, "monitor_h-120" }, -- 60 px off top and bottom
 		-- window_w/window_h resolve to the goal size (set by `size` above)
-		move = { "(monitor_w-window_w)", "0" }, -- flush with the right edge
+		move = { "(monitor_w-window_w)", "60" }, -- flush with the right edge
+		rounding = 0, -- sharp corners (right side is flush with the screen)
 		animation = "slide right",
 	})
 end
