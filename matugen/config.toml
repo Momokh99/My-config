@@ -10,6 +10,7 @@ source_color_index = 0
 input_path = "~/.config/matugen/templates/hyprland-colors.lua"
 output_path = "~/.config/hypr/colors.lua"
 index = 1
+post_hook = "hyprctl reload"
 
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
