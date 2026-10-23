@@ -11,6 +11,7 @@
   "modules-right": [
     "wireplumber",
     "network",
+    "bluetooth",
     "battery",
     "clock",
     "tray"
@@ -65,7 +66,19 @@
     "tooltip-format-wired": " {ifname}",
     "format-linked": "󰈀",
     "format-disconnected": "󰤭",
-    "format-alt": "󰈀 {ipaddr}"
+    "format-alt": "󰈀 {ipaddr}",
+    "on-click": "kitty --class nmtui -e nmtui"
+  },
+  "bluetooth": {
+    "format": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "kitty --class bluetui-floating -e bluetui"
   },
   "battery": {
     "format": "{icon} {capacity}%",
