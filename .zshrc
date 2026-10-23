@@ -47,8 +47,6 @@ zinit light-mode for \
 # Lightweight Oh My Zsh snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
 # Uncomment if needed:
 # zinit snippet OMZP::aws
 # zinit snippet OMZP::kubectl
@@ -61,12 +59,6 @@ zinit ice wait lucid; zinit light zsh-users/zsh-completions
 zinit ice wait lucid; zinit light zsh-users/zsh-autosuggestions
 zinit ice wait lucid; zinit light zdharma-continuum/fast-syntax-highlighting
 
-# fzf: use system-installed files (Arch Linux: /usr/share/fzf/)
-if (( $+commands[fzf] )); then
-  zinit ice wait lucid; zinit snippet /usr/share/fzf/key-bindings.zsh
-  zinit ice wait lucid; zinit snippet /usr/share/fzf/completion.zsh
-fi
-
 # =============================================================================
 # COMPLETIONS & FINAL INIT
 # =============================================================================
@@ -78,6 +70,12 @@ else
   compinit
 fi
 zinit cdreplay -q
+
+# fzf: shell integration emitted by fzf itself (no /usr/share/fzf on NixOS).
+# Loaded after compinit so completion.zsh can register its widgets.
+if (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+fi
 
 # =============================================================================
 # HISTORY & NAVIGATION
@@ -110,10 +108,9 @@ alias ...='cd ../..'
 alias gs='git status'
 alias gd='git diff'
 alias gap='git add -p'
-# yay
-alias s='yay -Ss'
-alias i='yay -S'
-alias u='yay -Syu'
+# Nix
+alias s='nix search nixpkgs'
+alias u='sudo nixos-rebuild switch --flake /etc/nixos'
 # =============================================================================
 # TOOLS
 # =============================================================================
