@@ -6,6 +6,7 @@
     tmux
     lazygit
     btop
+    imagemagick
 
     ripgrep
     fd
