@@ -10,5 +10,6 @@ content_halign=center
 layer=overlay
 insensitive=true
 hide_search=true
+hide_scroll=true
 no_actions=true
 filter_rate=100
