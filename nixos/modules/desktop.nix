@@ -31,6 +31,8 @@
     matugen
     impala
     bluetui
+    wifitui
+    (callPackage ../packages/nmtui-go.nix { })
     hyprpolkitagent
     librewolf
   ];
