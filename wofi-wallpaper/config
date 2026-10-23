@@ -1,6 +1,6 @@
 show=dmenu
 allow_images=true
-image_size=190
+image_size=170
 location=center
 width=700
 lines=3

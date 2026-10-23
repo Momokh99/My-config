@@ -4,7 +4,8 @@
 # decode ~60 MB every time it opens. Instead we cache ~20 KB previews.
 WALL_DIR="$HOME/.config/hypr/wallpaper"
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-thumbs"
-THUMB_SIZE=320
+THUMB_WIDTH=320
+THUMB_HEIGHT=200
 
 mkdir -p "$CACHE"
 
@@ -19,7 +20,8 @@ thumb_for() {
     local wp="$1" base mtime
     base="$(basename "$wp")"
     mtime="$(stat -c %Y "$wp")"
-    printf '%s/%s-%s.jpg' "$CACHE" "${base%.*}" "$mtime"
+    printf '%s/%s-%s-%sx%s.jpg' "$CACHE" "${base%.*}" "$mtime" \
+        "$THUMB_WIDTH" "$THUMB_HEIGHT"
 }
 
 # Create one preview if needed and print "thumb<TAB>original".
@@ -29,9 +31,9 @@ generate() {
     if [ ! -f "$thumb" ]; then
         if command -v magick >/dev/null 2>&1; then
             tmp="$thumb.tmp.$$"
-            if magick "$wp" -auto-orient -thumbnail "${THUMB_SIZE}x${THUMB_SIZE}^" \
-                -gravity center -extent "${THUMB_SIZE}x${THUMB_SIZE}" \
-                -strip -quality 82 "$tmp" 2>/dev/null; then
+            if magick "$wp" -auto-orient -thumbnail "${THUMB_WIDTH}x${THUMB_HEIGHT}^" \
+                -gravity center -extent "${THUMB_WIDTH}x${THUMB_HEIGHT}" \
+                -strip -quality 82 "jpg:$tmp" 2>/dev/null; then
                 mv -f "$tmp" "$thumb"
             else
                 rm -f "$tmp"
@@ -46,7 +48,7 @@ generate() {
     printf '%s\t%s\n' "$thumb" "$wp"
 }
 export -f thumb_for generate
-export CACHE THUMB_SIZE
+export CACHE THUMB_WIDTH THUMB_HEIGHT
 
 declare -A ORIGINAL
 entries=""

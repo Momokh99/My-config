@@ -88,6 +88,12 @@
     BROWSER = "librewolf";
   };
 
+  # GLib's NixOS patch prepends this directory to the schema search path.
+  # Without it, non-GNOME sessions cannot resolve org.gnome.desktop.* schemas
+  # (gsettings fails with "No schemas installed" in matugen's hooks).
+  environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
+    "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
+
   environment.systemPackages = with pkgs; [
     git
     curl
