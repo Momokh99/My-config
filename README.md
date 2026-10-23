@@ -17,7 +17,7 @@ Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 - **Browser**: Helium
 - **System Info**: Fastfetch
 - **Cursor**: Bibata Modern
-- **Extra**: Bluetooth (bluetui), WiFi (impala), screenshots (grim + slurp + wl-clipboard), Stylus export
+- **Extra**: Bluetooth (bluetui), WiFi (nmtui), screenshots (grim + slurp + wl-clipboard), Stylus export
 
 > **Note:** You can run any script with `bash script.sh` — no need to `chmod` unless you prefer `./script.sh`.
 
@@ -56,11 +56,11 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 | SUPER + Return | Terminal (kitty) |
 | SUPER + E | File manager (kitty + yazi) |
 | SUPER + space | App launcher (wofi) |
-| SUPER + B | Browser (helium-browser) |
+| SUPER + B | Browser (librewolf) |
 | SUPER + N | Editor (kitty + nvim) |
 | SUPER + O | Editor (kitty + opencode) |
 | SUPER + C | Open My-config in nvim |
-| SUPER + I | WiFi (kitty + impala) |
+| SUPER + I | WiFi (kitty + nmtui) |
 | SUPER + D | Bluetooth (kitty + bluetui) |
 | SUPER + L | Power menu (wofi-power) |
 | SUPER + W | Kill active window |

@@ -6,7 +6,7 @@
 local terminal = "kitty"
 local fileManager = terminal .. " -e yazi"
 local menu = "wofi"
-local browser = "helium-browser"
+local browser = "librewolf"
 local notification = "mako"
 local projectDir = "~/Projects/My-config"
 local powerMenu = os.getenv("HOME") .. "/.local/bin/wofi-power"
@@ -36,7 +36,7 @@ hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(terminal .. " -e opencode"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(terminal .. " -e nvim"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(terminal .. " -e nvim " .. projectDir))
-hl.bind("SUPER + I", hl.dsp.exec_cmd(terminal .. " --class impala -e impala"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(terminal .. " --class nmtui -e nmtui"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(terminal .. " --class bluetui-floating -e bluetui"))
 -- Keybind to show power menu (Super + L)

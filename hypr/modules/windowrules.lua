@@ -1,6 +1,6 @@
 hl.window_rule({
-	name = "impala_rules",
-	match = { class = "^(impala)$" },
+	name = "nmtui_rules",
+	match = { class = "^(nmtui)$" },
 	float = true,
 	center = true,
 	size = { 600, 550 }, -- Some Lua-Hyprland iterations prefer explicit width/height keys
