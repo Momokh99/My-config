@@ -1,14 +1,19 @@
-{programs.git = {
+{
+  programs.git = {
     enable = true;
-    userName = "Momokh99";
-    userEmail = "mohamedkhamekhami@gmail.com";
-    extraConfig = {
-        init.defaultBranch = "main";
-        pull.rebase = true;
+    settings = {
+        user = {
+            name = "Momokh99";
+            email = "mohamedkhamekhami@gmail.com";
+    };
+        init = {defaultBranch = "main";
+        };
+        pull = {rebase = true;
+        };
         };
     };
 
-programs.gh={
+  programs.gh={
     enable = true;
     gitCredentialHelper.enable = true;
     };
