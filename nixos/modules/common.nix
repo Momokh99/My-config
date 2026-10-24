@@ -114,6 +114,10 @@
     glib # provides gsettings, used by matugen's post-hook
     gsettings-desktop-schemas # org.gnome.desktop.* schemas for those hooks
     adw-gtk3 # theme matugen's gtk3 post-hook switches to
+
+    gcc
+    tree-sitter
+    nodejs
     kdePackages.kconfig # kwriteconfig6, used by matugen's KDE colour hook
   ];
 }
