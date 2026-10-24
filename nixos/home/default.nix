@@ -3,6 +3,8 @@
   imports = [
     ./packages.nix
     ./dotfiles.nix
+    ./git.nix
+
   ];
 
   home.username = "momo";
