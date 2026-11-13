@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 # set-theme.sh — set the wallpaper with a fade and regenerate matching colours.
 # Usage: set-theme.sh <image> | set-theme.sh --restore
-set -u
+set -uo pipefail
 
 TRANSITION_DURATION="${TRANSITION_DURATION:-1.5}"
 STATE="${XDG_CACHE_HOME:-$HOME/.cache}/current-wallpaper"
+
+# Usually launched from a keybind or wofi, where stderr is invisible.
+die() {
+    echo "set-theme: $*" >&2
+    command -v notify-send >/dev/null 2>&1 &&
+        notify-send -a set-theme "Theme update failed" "$*" >/dev/null 2>&1
+    exit 1
+}
 
 if [ "${1:-}" = "--restore" ]; then
     # Restore the last wallpaper, or a sane default on first login.
@@ -20,6 +28,9 @@ else
     exit 1
 fi
 
+command -v awww >/dev/null 2>&1 || die "awww is not installed"
+command -v matugen >/dev/null 2>&1 || die "matugen is not installed"
+
 # The daemon is usually started by Hyprland's autostart; make this script
 # self-sufficient for the first run or after a crash.
 if ! awww query >/dev/null 2>&1; then
@@ -29,16 +40,20 @@ if ! awww query >/dev/null 2>&1; then
         sleep 0.1
     done
 fi
+awww query >/dev/null 2>&1 || die "awww-daemon did not start"
 
 awww img "$WALLPAPER" \
     --transition-type fade \
     --transition-duration "$TRANSITION_DURATION" \
     --transition-fps 60 \
-    --transition-bezier .43,1.19,1,.4
+    --transition-bezier .43,1.19,1,.4 ||
+    die "could not apply wallpaper $WALLPAPER"
 
-# Remember it so the next login restores the same wallpaper.
+# Remember it (only now that it actually applied) so the next login restores
+# the same wallpaper.
 mkdir -p "$(dirname "$STATE")"
 printf '%s\n' "$WALLPAPER" > "$STATE"
 
 # Regenerate the palette; matugen's post-hooks update Waybar, borders, etc.
-matugen image "$WALLPAPER"
+matugen image "$WALLPAPER" ||
+    die "palette regeneration failed (the wallpaper was applied)"
