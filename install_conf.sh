@@ -6,38 +6,54 @@ CDIR="$HOME/.config"
 
 cd "$DOTS_DIR"
 
-configs=("waybar" "fastfetch" "kitty" "hypr" "matugen" "gtk-3.0" "gtk-4.0" "qt5ct" "qt6ct" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
+configs=("waybar" "fastfetch" "kitty" "hypr" "matugen" "mako" "alacritty" "gtk-3.0" "gtk-4.0" "qt5ct" "qt6ct" "wofi" "wofi-power" "wofi-screenshot" "wofi-wallpaper" "yazi" "nvim")
 
 echo " Starting manual symlinking ..."
 
 for folder in "${configs[@]}"; do
-  if [ -d "$folder" ]; then
-    # 1. Back up the physical directory if it exists and isn't a symlink
-    if [ -e "$CDIR/$folder" ] && [ ! -L "$CDIR/$folder" ]; then
-      echo "Backing up $folder → ${folder}.bak"
-      rm -rf "$CDIR/${folder}.bak"
-      mv "$CDIR/$folder" "$CDIR/${folder}.bak"
-    fi
+  [ -d "$folder" ] || continue
 
-    # 2. Ensure target directory exists
-    mkdir -p "$CDIR/$folder"
+  src="$(readlink -f "$folder")"
+  dest="$CDIR/$folder"
 
-    # 3. Symlink each item inside the source folder into the target
-    #    Use dotglob/nullglob so .* and * are handled cleanly, and guard
-    #    against self/recursive symlinks so re-running is idempotent.
-    shopt -s dotglob nullglob
-    for item in "$DOTS_DIR/$folder"/*; do
-      basename_item=$(basename "$item")
-      [[ "$basename_item" = "." || "$basename_item" = ".." ]] && continue
-      target="$CDIR/$folder/$basename_item"
-      # Skip if this item would link onto itself (prevents recursion)
-      [[ "$(readlink -f "$item")" = "$(readlink -f "$target")" ]] && continue
-      ln -sfr "$item" "$target"
-    done
-    shopt -u dotglob nullglob
-
-    echo "Linked contents of $folder"
+  # 1. Already deployed (previous run, NixOS/Home Manager): leave it alone.
+  if [ -L "$dest" ] && [ "$(readlink -f "$dest")" = "$src" ]; then
+    echo "$folder already linked"
+    continue
   fi
+
+  # 2. Move any existing path aside. `mv` keeps a stale symlink as a link
+  #    instead of writing through it into whatever it used to point at.
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    echo "Backing up $folder → ${folder}.bak"
+    rm -rf "$CDIR/${folder}.bak"
+    mv "$dest" "$CDIR/${folder}.bak"
+  fi
+
+  # 3. Ensure target directory exists
+  mkdir -p "$dest"
+
+  # 4. Symlink each item inside the source folder into the target.
+  #    dotglob/nullglob handle dotfiles, and the readlink guard keeps
+  #    re-runs idempotent (no link pointing at itself).
+  shopt -s dotglob nullglob
+  for item in "$DOTS_DIR/$folder"/*; do
+    basename_item=$(basename "$item")
+    target="$dest/$basename_item"
+    # Skip if this item would link onto itself (prevents recursion)
+    [ "$(readlink -f "$item")" = "$(readlink -f "$target")" ] && continue
+    # -T replaces the target itself. -f cannot overwrite a real directory,
+    # so move one aside first (e.g. a subdirectory that was never linked).
+    if [ -d "$target" ] && [ ! -L "$target" ]; then
+      echo "Backing up $folder/$basename_item → $basename_item.bak"
+      rm -rf "${target}.bak"
+      mv "$target" "${target}.bak"
+    fi
+    ln -sfrT "$item" "$target"
+  done
+  shopt -u dotglob nullglob
+
+  echo "Linked contents of $folder"
 done
 
 # ─── Wofi-power script symlink ───
@@ -74,6 +90,14 @@ if [ -e "$BINDIR/wofi-wallpaper" ] && [ ! -L "$BINDIR/wofi-wallpaper" ]; then
 fi
 ln -sf "$DOTS_DIR/wofi-wallpaper.sh" "$BINDIR/wofi-wallpaper"
 echo "Linked wofi-wallpaper.sh → $BINDIR/wofi-wallpaper"
+
+# ─── gtk-themes-reload (matugen's GTK post-hook) symlink ───
+if [ -e "$BINDIR/gtk-themes-reload" ] && [ ! -L "$BINDIR/gtk-themes-reload" ]; then
+  echo "Backing up gtk-themes-reload → gtk-themes-reload.bak"
+  mv "$BINDIR/gtk-themes-reload" "$BINDIR/gtk-themes-reload.bak"
+fi
+ln -sf "$DOTS_DIR/matugen/post-hook-scripts/gtk-themes-reload.sh" "$BINDIR/gtk-themes-reload"
+echo "Linked gtk-themes-reload.sh → $BINDIR/gtk-themes-reload"
 
 # ─── Tmux config (symlinked into $HOME, not ~/.config) ───
 if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
