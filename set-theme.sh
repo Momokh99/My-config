@@ -55,5 +55,12 @@ mkdir -p "$(dirname "$STATE")"
 printf '%s\n' "$WALLPAPER" > "$STATE"
 
 # Regenerate the palette; matugen's post-hooks update Waybar, borders, etc.
-matugen image "$WALLPAPER" ||
-    die "palette regeneration failed (the wallpaper was applied)"
+# Honour the target selection written by setup.sh, if one exists.
+STATE_CFG="${XDG_STATE_HOME:-$HOME/.local/state}/matugen/selected.toml"
+if [ -f "$STATE_CFG" ]; then
+    matugen image "$WALLPAPER" -c "$STATE_CFG" ||
+        die "palette regeneration failed (the wallpaper was applied)"
+else
+    matugen image "$WALLPAPER" ||
+        die "palette regeneration failed (the wallpaper was applied)"
+fi
