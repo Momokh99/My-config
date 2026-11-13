@@ -40,4 +40,5 @@ in
   home.file.".local/bin/wofi-screenshot".source = script "wofi-screenshot" "wofi-screenshot.sh";
   home.file.".local/bin/wofi-wallpaper".source = script "wofi-wallpaper" "wofi-wallpaper.sh";
   home.file.".local/bin/set-theme".source = script "set-theme" "set-theme.sh";
+  home.file.".local/bin/gtk-themes-reload".source = script "gtk-themes-reload" "matugen/post-hook-scripts/gtk-themes-reload.sh";
 }
