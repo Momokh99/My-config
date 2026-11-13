@@ -14,10 +14,10 @@ Arch Linux dotfiles for Hyprland with Tokyo Night theme.
 - **Terminals**: Kitty, Alacritty
 - **Shell**: Zsh (Powerlevel10k, zoxide, fzf)
 - **Editor**: Neovim (LazyVim-based)
-- **Browser**: Helium
+- **Browser**: LibreWolf
 - **System Info**: Fastfetch
 - **Cursor**: Bibata Modern
-- **Extra**: Bluetooth (bluetui), WiFi (nmtui), screenshots (grim + slurp + wl-clipboard), Stylus export
+- **Extra**: Bluetooth (bluetui), WiFi (wifitui), screenshots (grim + slurp + wl-clipboard), Stylus export
 
 > **Note:** You can run any script with `bash script.sh` — no need to `chmod` unless you prefer `./script.sh`.
 
@@ -32,9 +32,18 @@ cd /root/My-config
 bash install_pack.sh
 ```
 
+Running as root skips the AUR packages (`makepkg` refuses to run as root).
+Install them after the first reboot:
+
+```bash
+yay -S --needed --noconfirm bibata-cursor-theme wifitui-bin
+```
+
 **After reboot (as normal user):**
 
 ```bash
+sudo mv /root/My-config ~/My-config
+sudo chown -R "$USER":"$USER" ~/My-config
 cd ~/My-config
 bash change_Shell.sh       # Set Zsh as default — log out then back in
 bash install_conf.sh       # Deploy configs to ~/.config/
@@ -44,10 +53,10 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 
 | Script | What it does | Details | Usage |
 |---|---|---|---|
-| `install_pack.sh` | Updates system, installs packages | Runs `pacman -Syu`, installs 37 pacman packages (firefox, nvim, kitty, opencode, hyprland, waybar, wofi, mako, yazi, ...), installs `yay` AUR helper, then installs 2 AUR packages (zen-browser-bin, bibata-cursor-theme) | `sudo bash install_pack.sh` (normal user) or `bash install_pack.sh` (root/chroot) |
+| `install_pack.sh` | Updates system, installs packages | Runs `pacman -Syu`, installs the pacman packages (nvim, kitty, opencode, hyprland, waybar, wofi, mako, awww, matugen, librewolf, yazi, ...), installs `yay` and the AUR packages (bibata-cursor-theme, wifitui-bin) when run as a normal user. As root/chroot the AUR step is skipped and the command to run later is printed | `bash install_pack.sh` (it calls `sudo` itself) |
 | `change_Shell.sh` | Sets Zsh as default shell | Installs zsh via distro package manager if missing, adds it to `/etc/shells`, runs `chsh -s $(which zsh)` | `bash change_Shell.sh` — then log out & back in |
-| `install_conf.sh` | Deploys configs with GNU Stow | Symlinks waybar, fastfetch, kitty, hypr, wofi, wofi-power, yazi into `~/.config/`; backs up existing physical directories first; also symlinks `wofi-power.sh` → `~/.local/bin/wofi-power` | `bash install_conf.sh` |
-| `backup.sh` | Backs up current configs | Copies waybar, fastfetch, kitty, hypr, wofi, yazi + `.bashrc` / `.zshrc` to `~/config/config$(date)/` | `bash backup.sh` |
+| `install_conf.sh` | Deploys configs with manual symlinks | Symlinks waybar, fastfetch, kitty, hypr, matugen, mako, alacritty, wofi, wofi-power, yazi into `~/.config/`; backs up existing directories/symlinks first; also symlinks the helper scripts (`wofi-power`, `wofi-screenshot`, `wofi-wallpaper`, `set-theme`, `gtk-themes-reload`) → `~/.local/bin/` | `bash install_conf.sh` |
+| `backup.sh` | Backs up current configs | Copies waybar, fastfetch, kitty, hypr, matugen, mako, alacritty, wofi, yazi + `.bashrc` / `.zshrc` / `.tmux.conf` / `.config/kdeglobals` to `~/config/config$(date)/` | `bash backup.sh` |
 
 ## Keybinds (SUPER = Windows/Mod4)
 
@@ -60,7 +69,7 @@ bash install_conf.sh       # Deploy configs to ~/.config/
 | SUPER + N | Editor (kitty + nvim) |
 | SUPER + O | Editor (kitty + opencode) |
 | SUPER + C | Open My-config in nvim |
-| SUPER + I | WiFi (kitty + nmtui) |
+| SUPER + I | WiFi (kitty + wifitui) |
 | SUPER + D | Bluetooth (kitty + bluetui) |
 | SUPER + L | Power menu (wofi-power) |
 | SUPER + W | Kill active window |
