@@ -502,6 +502,11 @@ backup_configs() {
     rm -rf "$target"
     mkdir -p "$(dirname "$target")"
     cp -a "$src" "$target"
+    # Wallpapers are in git (hypr/wallpapers.tar.gz) and rebuildable; keeping
+    # them out of the config snapshot saves several megabytes per backup.
+    if [[ $rel == ".config/hypr" ]]; then
+      rm -rf "$target/wallpaper" "$target/wallpapers.tar.gz"
+    fi
     echo "  $rel"
   done
 }
@@ -626,6 +631,7 @@ link_scripts() {
     "wofi-power.sh:wofi-power" \
     "wofi-screenshot.sh:wofi-screenshot" \
     "wofi-wallpaper.sh:wofi-wallpaper" \
+    "wallpaper-pack.sh:wallpaper-pack" \
     "set-theme.sh:set-theme" \
     "matugen/post-hook-scripts/gtk-themes-reload.sh:gtk-themes-reload"
   do
@@ -639,6 +645,20 @@ link_scripts() {
     ln -sfnr "$DOTS_DIR/$src" "$BIN_DIR/$name"
     echo "linked $src → $BIN_DIR/$name"
   done
+}
+
+# Wallpapers are stored compressed in hypr/wallpapers.tar.gz.
+sync_wallpapers() {
+  local runner=""
+  if [[ -x $BIN_DIR/wallpaper-pack ]]; then
+    runner="$BIN_DIR/wallpaper-pack"
+  elif [[ -x $DOTS_DIR/wallpaper-pack.sh ]]; then
+    runner="$DOTS_DIR/wallpaper-pack.sh"
+  else
+    warn "wallpaper-pack not found; wallpapers were not extracted"
+    return 0
+  fi
+  "$runner" sync || warn "wallpaper extraction failed (run: wallpaper-pack sync)"
 }
 
 install_configs() {
@@ -675,6 +695,7 @@ install_configs() {
   if [[ $DRY_RUN -eq 1 ]]; then
     info "Would link configs into $CONFIG_DIR"
     printf '  %s\n' "${CFG_SEL[@]}"
+    echo "  (wallpapers would be extracted from hypr/wallpapers.tar.gz)"
     if [[ $DO_BACKUP == yes ]]; then
       echo "  (after backing up to $BACKUP_ROOT/config$(date +%F))"
     fi
@@ -692,6 +713,7 @@ install_configs() {
   done
 
   link_scripts
+  sync_wallpapers
 }
 
 # ─── matugen ──────────────────────────────────────────────────────────────────
@@ -819,6 +841,7 @@ read_current_wallpaper() {
 }
 
 list_wallpapers() {
+  [[ -d $DOTS_DIR/hypr/wallpaper ]] || return 0
   find -L "$DOTS_DIR/hypr/wallpaper" -maxdepth 1 -type f \
     \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \) \
     -printf '%f\n' | sort

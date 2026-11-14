@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   repo = "${config.home.homeDirectory}/Projects/My-config";
 
@@ -10,6 +10,12 @@ let
   # Wrap them instead of linking so the shebang is always valid.
   script = name: file: pkgs.writeShellScript name ''
     exec ${pkgs.bash}/bin/bash ${repo}/${file} "$@"
+  '';
+
+  # Wallpapers are stored compressed in hypr/wallpapers.tar.gz.
+  wallpaperPack = pkgs.writeShellScript "wallpaper-pack" ''
+    export DOTS_DIR=${repo}
+    exec ${pkgs.bash}/bin/bash ${repo}/wallpaper-pack.sh "$@"
   '';
 in
 {
@@ -41,4 +47,10 @@ in
   home.file.".local/bin/wofi-wallpaper".source = script "wofi-wallpaper" "wofi-wallpaper.sh";
   home.file.".local/bin/set-theme".source = script "set-theme" "set-theme.sh";
   home.file.".local/bin/gtk-themes-reload".source = script "gtk-themes-reload" "matugen/post-hook-scripts/gtk-themes-reload.sh";
+  home.file.".local/bin/wallpaper-pack".source = wallpaperPack;
+
+  # Extract the wallpaper pack after the config symlinks are in place.
+  home.activation.wallpaperPack = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${wallpaperPack} sync || true
+  '';
 }

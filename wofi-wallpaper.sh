@@ -1,19 +1,34 @@
 #!/usr/bin/env bash
 # Wallpaper picker with cached thumbnails (wofi dmenu mode).
-# Full-size wallpapers are 2-4 MB PNGs; showing them directly makes wofi
-# decode ~60 MB every time it opens. Instead we cache ~20 KB previews.
+# The images are stored compressed as WebP in hypr/wallpapers.tar.gz; showing
+# full-size files directly makes wofi decode ~5 MB every time it opens, so we
+# cache ~20 KB previews instead.
 WALL_DIR="$HOME/.config/hypr/wallpaper"
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-thumbs"
 THUMB_WIDTH=320
 THUMB_HEIGHT=200
 
-mkdir -p "$CACHE"
+mkdir -p "$CACHE" "$WALL_DIR"
 
-mapfile -t wallpapers < <(
+scan_wallpapers() {
     find -L "$WALL_DIR" -maxdepth 1 -type f \
         \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \) | sort
-)
-[ ${#wallpapers[@]} -eq 0 ] && exit 0
+}
+
+mapfile -t wallpapers < <(scan_wallpapers)
+
+# The images live compressed in git; extract them on first use.
+if [ ${#wallpapers[@]} -eq 0 ] && command -v wallpaper-pack >/dev/null 2>&1; then
+    wallpaper-pack sync >/dev/null 2>&1 || true
+    mapfile -t wallpapers < <(scan_wallpapers)
+fi
+
+if [ ${#wallpapers[@]} -eq 0 ]; then
+    command -v notify-send >/dev/null 2>&1 &&
+        notify-send -a wallpaper "No wallpapers" \
+            "Run: wallpaper-pack sync" >/dev/null 2>&1
+    exit 0
+fi
 
 # Preview name includes the mtime: replacing an image invalidates its thumb.
 thumb_for() {

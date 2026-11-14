@@ -115,5 +115,16 @@ fi
 ln -sfr "$DOTS_DIR/kdeglobals" "$HOME/.config/kdeglobals"
 echo "Linked kdeglobals → $HOME/.config/kdeglobals"
 
+# ─── wallpaper-pack symlink (compressed wallpapers in git) ───
+if [ -e "$BINDIR/wallpaper-pack" ] && [ ! -L "$BINDIR/wallpaper-pack" ]; then
+  echo "Backing up wallpaper-pack → wallpaper-pack.bak"
+  mv "$BINDIR/wallpaper-pack" "$BINDIR/wallpaper-pack.bak"
+fi
+ln -sf "$DOTS_DIR/wallpaper-pack.sh" "$BINDIR/wallpaper-pack"
+echo "Linked wallpaper-pack.sh → $BINDIR/wallpaper-pack"
+
+# Extract the wallpaper pack (no-op when already current).
+"$BINDIR/wallpaper-pack" sync || echo "warning: wallpaper extraction failed"
+
 echo "────────────────────────────────────────────────────────────"
 echo " Finished linking"

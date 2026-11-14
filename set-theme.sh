@@ -14,12 +14,23 @@ die() {
     exit 1
 }
 
+# The documented default, or any extracted wallpaper when it is missing.
+default_wallpaper() {
+    local dir="$HOME/.config/hypr/wallpaper" f
+    for f in "$dir/wallpaper-26.png" \
+        "$dir"/*.png "$dir"/*.jpg "$dir"/*.jpeg "$dir"/*.webp; do
+        [ -f "$f" ] && { printf '%s\n' "$f"; return 0; }
+    done
+    return 1
+}
+
 if [ "${1:-}" = "--restore" ]; then
     # Restore the last wallpaper, or a sane default on first login.
     if [ -r "$STATE" ] && [ -f "$(cat "$STATE")" ]; then
         WALLPAPER="$(cat "$STATE")"
     else
-        WALLPAPER="$HOME/.config/hypr/wallpaper/wallpaper-26.png"
+        WALLPAPER="$(default_wallpaper)"
+        [ -n "$WALLPAPER" ] || die "no wallpaper found; run wallpaper-pack sync"
     fi
 elif [ -n "${1:-}" ] && [ -f "${1:-}" ]; then
     WALLPAPER="$(realpath "$1")"

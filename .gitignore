@@ -1,3 +1,6 @@
 result
 result-*
 *.qcow2
+
+# Extracted from hypr/wallpapers.tar.gz by wallpaper-pack.sh
+hypr/wallpaper/

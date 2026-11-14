@@ -17,6 +17,10 @@ for folder in "${configs[@]}"; do
     rm -rf "$BACK_UP_DIR/$folder"
     mkdir -p "$BACK_UP_DIR/$folder"
     cp -rL "$HOME/.config/$folder/." "$BACK_UP_DIR/$folder/"
+    # Wallpapers ship compressed in git; skip the extracted copies and the pack.
+    if [ "$folder" = "hypr" ]; then
+      rm -rf "$BACK_UP_DIR/$folder/wallpaper" "$BACK_UP_DIR/$folder/wallpapers.tar.gz"
+    fi
     echo "  BACKUP DONE SUCCESSFULLY $folder"
   else
     echo "   NOT found"
