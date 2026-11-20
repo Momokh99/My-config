@@ -85,7 +85,8 @@ done
 
 chosen=$(printf '%s' "$entries" | wofi --dmenu -I \
     --conf "$HOME/.config/wofi-wallpaper/config" \
-    --style "$HOME/.config/wofi-wallpaper/style.css")
+    --style "$HOME/.config/wofi-wallpaper/style.css" \
+    --color "$HOME/.config/wofi-wallpaper/colors.css")
 
 [ -z "$chosen" ] && exit 0
 

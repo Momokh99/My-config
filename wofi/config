@@ -7,3 +7,4 @@ filter_rate=100
 allow_images=true
 image_size=24
 term=kitty
+colors=colors.css

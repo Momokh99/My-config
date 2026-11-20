@@ -9,7 +9,8 @@ options="$LOCK\n$LOGOUT\n$REBOOT\n$SHUTDOWN"
 
 chosen=$(echo -e "$options" | wofi --dmenu \
   --conf "$HOME/.config/wofi-power/config" \
-  --style "$HOME/.config/wofi-power/style.css")
+  --style "$HOME/.config/wofi-power/style.css" \
+  --color "$HOME/.config/wofi-power/colors.css")
 
 chosen=$(echo "$chosen" | xargs)
 
@@ -19,8 +20,9 @@ case "$chosen" in
   hyprlock
   ;;
 "$LOGOUT")
-  # Standard way to cleanly exit a Hyprland session
-  uwsm stop 2>/dev/null || hyprctl dispatch exit
+  # Standard way to cleanly exit a Hyprland session. Hyprland 0.57 replaced
+  # the legacy "dispatch exit" syntax with Lua dispatchers.
+  uwsm stop 2>/dev/null || hyprctl dispatch 'hl.dsp.exit()'
   ;;
 "$REBOOT")
   # Systemd command to restart the machine

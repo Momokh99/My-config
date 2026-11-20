@@ -1,4 +1,10 @@
-@import url("colors.css");
+@define-color bg --wofi-color0;
+@define-color fg --wofi-color1;
+@define-color input-bg --wofi-color2;
+@define-color accent --wofi-color3;
+@define-color accent-fg --wofi-color4;
+@define-color selected --wofi-color5;
+@define-color selected-fg --wofi-color6;
 
 window {
   margin: 0px;

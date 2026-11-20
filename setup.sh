@@ -24,12 +24,12 @@ CONFIG_DIRS=(
   wofi wofi-power wofi-screenshot wofi-wallpaper
   yazi nvim
 )
-EXTRA_LINKS=(tmux/.tmux.conf kdeglobals)
+EXTRA_LINKS=(tmux/.tmux.conf kdeglobals .bashrc .zshrc .p10k.zsh)
 CONFIG_ITEMS=("${CONFIG_DIRS[@]}" "${EXTRA_LINKS[@]}")
 
 BACKUP_ITEMS=()
 for _d in "${CONFIG_DIRS[@]}"; do BACKUP_ITEMS+=(".config/$_d"); done
-BACKUP_ITEMS+=(.bashrc .zshrc .config/kdeglobals tmux/.tmux.conf)
+BACKUP_ITEMS+=(.bashrc .zshrc .p10k.zsh .config/kdeglobals tmux/.tmux.conf)
 unset _d
 
 PKG_GROUPS=(essentials hyprland terminal theme apps aur)
@@ -45,12 +45,13 @@ AUR_MEMBERS=(bibata-cursor-theme wifitui-bin)
 declare -A SEEN_PAC=() SEEN_AUR=()
 
 MATUGEN_TARGETS=(
-  hyprland kitty mako waybar wofi wofi-power wofi-screenshot
+  hyprland kitty mako waybar wofi wofi-power wofi-screenshot wofi-wallpaper
   gtk3 gtk4 qt5ct qt6ct kde
 )
 declare -A MATUGEN_KEY=(
   [hyprland]=hyprland [kitty]=kitty [mako]=mako [waybar]=waybar
   [wofi]=wofi [wofi-power]=wofi_power [wofi-screenshot]=wofi_screenshot
+  [wofi-wallpaper]=wofi_wallpaper
   [gtk3]=gtk3 [gtk4]=gtk4 [qt5ct]=qt5ct [qt6ct]=qt6ct [kde]=kde
 )
 
@@ -600,12 +601,16 @@ link_extra() {
   case $item in
     kdeglobals)      src="$DOTS_DIR/kdeglobals";        dst="$CONFIG_DIR/kdeglobals" ;;
     tmux/.tmux.conf) src="$DOTS_DIR/tmux/.tmux.conf";   dst="$HOME/.tmux.conf" ;;
+    .bashrc)         src="$DOTS_DIR/.bashrc";           dst="$HOME/.bashrc" ;;
+    .zshrc)          src="$DOTS_DIR/.zshrc";            dst="$HOME/.zshrc" ;;
+    .p10k.zsh)       src="$DOTS_DIR/p10k.zsh";          dst="$HOME/.p10k.zsh" ;;
     *) warn "unknown extra link: $item"; return 0 ;;
   esac
 
   if [[ ! -f $src ]]; then warn "missing in repo: $src"; return 0; fi
 
   if [[ -e $dst ]] && [[ ! -L $dst ]]; then
+    rm -rf "${dst}.bak"
     mv "$dst" "${dst}.bak"
     echo "backed up $dst → ${dst}.bak"
   fi

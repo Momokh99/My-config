@@ -15,7 +15,8 @@ NixOS + Home Manager flake in [`nixos/`](nixos/).
 - **Notifications**: Mako
 - **Terminals**: Kitty, Alacritty
 - **File Manager**: Yazi (terminal-based)
-- **Shell**: Zsh (zinit + Powerlevel10k, zoxide, fzf)
+- **Shell**: Zsh (zinit + Powerlevel10k, zoxide, fzf), plus a standalone
+  Bash prompt (`.bashrc`)
 - **Editor**: Neovim (LazyVim-based)
 - **Browser**: LibreWolf
 - **System Info**: Fastfetch
@@ -61,7 +62,8 @@ bash setup.sh
    optionally set it as the default shell.
 2. **Packages** — package groups (`essentials`, `hyprland`, `terminal`,
    `theme`, `apps`, `aur`), then an optional per-package pass.
-3. **Configs** — 19 config entries, all selected by default.
+3. **Configs** — 22 config entries (18 under `~/.config/`, plus `.tmux.conf`,
+   `.bashrc`, `.zshrc` and `.p10k.zsh`), all selected by default.
 4. **Backup** — optionally snapshot the current configs before linking.
 5. **Matugen** — install/link, theme targets, wallpaper, action
    (`theme`, colors-only, none) and regeneration.
@@ -88,7 +90,7 @@ Add `--dry-run` anywhere to print the resolved plan without changing anything.
 |---|---|
 | `packages` | `pacman -Syu`, install the selected pacman packages, then `yay` + AUR packages when run as a normal user |
 | `shell` | Install/select a shell and optionally `chsh` to it |
-| `config` | Back up and symlink the dotfiles into `~/.config/` and `~/.local/bin/` |
+| `config` | Back up and symlink the dotfiles into `~/.config/`, `~/.local/bin/`, `~/.bashrc`, `~/.zshrc` and `~/.p10k.zsh` |
 | `backup` | Copy the current configs to `~/config/config<date>/` |
 | `matugen` | Save the Matugen target selection and apply a wallpaper/palette |
 | `all` | `shell` + `config` + `matugen` |
@@ -119,14 +121,12 @@ Notes:
 
 ## Matugen
 
-Matugen generates `colors.css` / `colors.lua` for Hyprland, kitty, Mako,
-Waybar, the three wofi menus, GTK 3/4, Qt5/Qt6 and KDE from the current
-wallpaper.
+Matugen generates palettes for Hyprland, kitty, Mako, Waybar, the four wofi
+menus, GTK 3/4, Qt5/Qt6 and KDE from the current wallpaper.
 
-- Real targets (12): `hyprland`, `kitty`, `mako`, `waybar`, `wofi`,
-  `wofi-power`, `wofi-screenshot`, `gtk3`, `gtk4`, `qt5ct`, `qt6ct`, `kde`.
-- `wofi-wallpaper` has no Matugen template in `matugen/config.toml`, so its
-  colors are static.
+- Real targets (13): `hyprland`, `kitty`, `mako`, `waybar`, `wofi`,
+  `wofi-power`, `wofi-screenshot`, `wofi-wallpaper`, `gtk3`, `gtk4`, `qt5ct`,
+  `qt6ct`, `kde`.
 - The selection is stored in
   `~/.local/state/matugen/selected.toml` (outside the repo). `set-theme.sh`
   uses it for later wallpaper changes, including the `wofi-wallpaper` picker

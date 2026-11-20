@@ -34,8 +34,12 @@ autoload -Uz _zinit
 # ESSENTIAL PLUGINS (load immediately)
 # =============================================================================
 # Powerlevel10k prompt
+# Never start the interactive first-run wizard: it triggers when no POWERLEVEL9K_*
+# parameter is defined, which is exactly the state of a fresh install. The shipped
+# p10k.zsh sets plenty of them; this line covers the case where it is missing.
+typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 zinit ice depth=1; zinit light romkatv/powerlevel10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Core annexes (required early)
 zinit light-mode for \
@@ -115,7 +119,7 @@ alias u='sudo nixos-rebuild switch --flake /etc/nixos'
 # TOOLS
 # =============================================================================
 # zoxide (smart navigation)
-eval "$(zoxide init --cmd cd zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init --cmd cd zsh)"
 
 
 

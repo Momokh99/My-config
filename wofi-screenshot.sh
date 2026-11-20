@@ -5,13 +5,14 @@ mkdir -p "$SCREENSHOT_DIR"
 
 CONF="$HOME/.config/wofi-screenshot/config"
 STYLE="$HOME/.config/wofi-screenshot/style.css"
+COLORS="$HOME/.config/wofi-screenshot/colors.css"
 
 FULL="Full Screen"
 REGION="Region"
 CLIP_REGION="Clipboard Region"
 CLIP_FULL="Clipboard Full Screen"
 
-chosen=$(printf '%s\n' "$FULL" "$REGION" "$CLIP_REGION" "$CLIP_FULL" | wofi --dmenu --conf "$CONF" --style "$STYLE")
+chosen=$(printf '%s\n' "$FULL" "$REGION" "$CLIP_REGION" "$CLIP_FULL" | wofi --dmenu --conf "$CONF" --style "$STYLE" --color "$COLORS")
 chosen=$(echo "$chosen" | xargs)
 
 while pgrep -x wofi >/dev/null 2>&1; do sleep 0.05; done

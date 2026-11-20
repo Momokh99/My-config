@@ -39,7 +39,9 @@ in
   xdg.configFile."kdeglobals".source = link "kdeglobals";
   xdg.configFile."fastfetch".source = link "fastfetch";
 
+  home.file.".bashrc".source = link ".bashrc";
   home.file.".zshrc".source = link ".zshrc";
+  home.file.".p10k.zsh".source = link "p10k.zsh";
   home.file.".tmux.conf".source = link "tmux/.tmux.conf";
 
   home.file.".local/bin/wofi-power".source = script "wofi-power" "wofi-power.sh";

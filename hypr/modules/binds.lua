@@ -27,7 +27,7 @@ hl.bind(mainMod .. "+" .. enter, hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(
 	mainMod .. " + SHIFT + Q",
-	hl.dsp.exec_cmd([[sh -c 'command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit']])
+	hl.dsp.exec_cmd([[sh -c 'command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch "hl.dsp.exit()"']])
 )
 -- Restart Hyprland with Ctrl + Alt + R
 hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("hyprctl dispatch restart"))
